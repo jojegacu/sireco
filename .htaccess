@@ -1,0 +1,10 @@
+Options All -Indexes
+
+RewriteEngine On
+
+# Evitar reescritura de recursos reales (imágenes, CSS, JS)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirige todo lo demás a index.php
+RewriteRule ^([a-zA-Z0-9/_-]+)$ index.php?url=$1 [QSA,L]
