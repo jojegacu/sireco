@@ -2408,6 +2408,42 @@ body .modal .btn-danger:hover,
 
 /* Móviles pequeños */
 @media (max-width: 480px) {
+  /* Ajustes específicos para página de inicio en móviles muy pequeños */
+  .welcome-container {
+    max-width: 100%;
+    margin: 5px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .welcome-title {
+    font-size: 1em;
+    padding: 0.3em;
+    font-weight: 600;
+    width: 95%;
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .welcome-logo {
+    padding: 0.8em 0;
+  }
+  
+  .animated-logo {
+    max-width: 90%;
+  }
+  
+  /* Mantener animación más sutil en móviles */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  
+  .box-header.with-border {
+    padding: 8px 5px;
+  }
+  
   /* Ajustar encabezados */
   .content-wrapper .content-header h1 {
     font-size: 20px !important;
