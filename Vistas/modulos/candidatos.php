@@ -167,14 +167,14 @@
                     <table class="table table-bordered table-hover" id="tablaVacantes">
                       <thead>
                         <tr>
+                          <th>Tienda</th>
                           <th>ID</th>
                           <th>Clave</th>
                           <th>Categoría</th>
                           <th>CP</th>
                           <th>Estado</th>
                           <th>Municipio</th>
-                          <th>Colonia</th>
-                          <th>Tienda</th>                          
+                          <th>Colonia</th>                                                  
                         </tr>
                       </thead>
                       <tbody></tbody>

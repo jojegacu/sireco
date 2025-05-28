@@ -143,18 +143,19 @@ $(document).on("click", ".btnEliminarVacante", function () {
 
 // Función para abrir modal y cargar datos
 $(document).on("click", ".btnEditarVacante", function () {
-  const id = $(this).data("id");
+  const idVacante = $(this).data("id");
 
   $.ajax({
     url: baseUrl + "/Ajax/vacanteA.php",
     method: "POST",
-    data: { obtenerVacante: true, id: id },
+    data: { obtenerVacante: true, idVacante: idVacante },
     dataType: "json",
     success: function (vacante) {
      
       // Rellenar combos primero
       cargarCombosEditar(() => {
-        $("#edit_id").val(vacante.id);
+        $("#edit_idVacante").val(vacante.idVacante);
+        $("#edit_id").val(vacante.id); // ✅ Asegura que se incluya en el form
         $("#edit_clave").val(vacante.clave);
         $("#edit_comboRegion").val(vacante.idRegionFk);
         $("#edit_tienda").val(vacante.tienda);
@@ -216,6 +217,7 @@ $("#formEditarVacante").on("submit", function (e) {
     processData: false,
     dataType: "json",
     success: function (resp) {
+       console.log(resp); // Agrega esta línea
       if (resp.success) {
         alert("✅ Vacante actualizada correctamente.");
         $("#modalEditarVacante").modal("hide");
@@ -348,6 +350,7 @@ function renderizarTablaVacantes() {
   vacantesPagina.forEach(function (vacante) {
     let fila = `
       <tr data-id="${vacante.idVacante}" data-clave="${vacante.clave}" data-categoria="${vacante.categoria}">
+        <td>${vacante.tienda}</td>
         <td>${vacante.idVacante}</td>
         <td>${vacante.clave || ''}</td>
         <td>${vacante.categoria}</td>
@@ -355,7 +358,7 @@ function renderizarTablaVacantes() {
         <td>${vacante.estado}</td>
         <td>${vacante.municipio}</td>
         <td>${vacante.colonia}</td>
-        <td>${vacante.tienda}</td>
+        
       </tr>`;
     tbody.append(fila);
   });

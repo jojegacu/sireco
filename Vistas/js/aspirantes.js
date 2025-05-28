@@ -323,7 +323,7 @@ $(document).on("click", ".btnChatWhatsapp", function () {
   const numero = tel.replace(/\D/g, '');
 
   $("#nombreAspiranteWA").text(`Número: ${tel}`);
-  $("#mensajeWA").val("Hola, soy del área de reclutamiento de SIRECO, ¿podemos hablar?");
+  $("#mensajeWA").val("Hola, soy del área de reclutamiento de Grupo ASE, ¿podemos hablar?");
 
   $("#linkWhatsapp").off("click").on("click", function (e) {
     e.preventDefault();

@@ -53,9 +53,11 @@ class vacanteModelo extends conexion{
 
     static public function mdlMostrarVacantes($tabla) {
       $sql = "SELECT v.*, 
-                     c.valor AS puesto 
+                     c.valor AS puesto,
+                     r.region AS region  
               FROM $tabla v 
               LEFT JOIN catalogos c ON v.idCatalogoFk = c.idCatalogo
+              LEFT JOIN region r ON v.idRegionFk = r.idRegion
               ORDER BY v.fechaAlta DESC";
 
       $stmt = conexion::conexionBD()->prepare($sql);
@@ -83,7 +85,8 @@ static public function mdlObtenerVacantePorId($tabla, $id) {
 }
 
 static public function mdlActualizarVacante($tabla, $datos) {
-  $sql = "UPDATE $tabla SET 
+  $sql = "UPDATE $tabla SET     
+    id = :id,
     idRegionFk = :idRegionFk,
     tienda = :tienda,
     responsable = :responsable,
@@ -93,10 +96,11 @@ static public function mdlActualizarVacante($tabla, $datos) {
     col = :colBarrio,
     idCatalogoFk = :idCatalogoFk,
     fechaAlta = :fechaCap
-    WHERE idVacante = :id";
+    WHERE idVacante = :idVacante";
 
   $stmt = conexion::conexionBD()->prepare($sql);
 
+  $stmt->bindParam(":idVacante", $datos["idVacante"], PDO::PARAM_STR);
   $stmt->bindParam(":id", $datos["id"], PDO::PARAM_STR);
   $stmt->bindParam(":idRegionFk", $datos["idRegionFk"], PDO::PARAM_INT);
   $stmt->bindParam(":tienda", $datos["tienda"], PDO::PARAM_STR);
