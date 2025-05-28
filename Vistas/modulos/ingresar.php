@@ -1,6 +1,6 @@
 <div class="login-box">
   <div class="login-logo">
-    <img src="<?php echo $base_url; ?>Vistas/img/logo.png" class="img-responsive">
+    <img src="<?php echo $base_url; ?>Vistas/img/logoase-white.png" class="img-responsive">
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

@@ -17,7 +17,7 @@ if (!tieneAcceso("editarUsrEmp")) {
 
           <div class="box" style="margin-left: 20%;">
             <div class="box-header" align="center">
-              <h3 class="box-title">REGISTRO DE DATOS DE EMPLEADOS</h3>
+              <h1 class="box-title">REGISTRO DE DATOS DE EMPLEADOS</h1>
             </div>
             <!-- /.box-header -->
 				

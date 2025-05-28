@@ -7,9 +7,16 @@ if (!tieneAcceso("reportes")) {
 // Agregar la variable baseUrl para JavaScript
 $baseUrl = rtrim(dirname($_SERVER["SCRIPT_NAME"]), "/");
 ?>
-<section class="content">
-  <div class="box">
-    <div class="box-body" style="min-height: calc(100vh - 150px);">
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>REPORTES DEL SISTEMA</h1>
+  </section>
+  <section class="content">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Generar reportes de candidatos</h3>
+      </div>
+      <div class="box-body" style="min-height: calc(100vh - 250px);">
       <div class="row">
         <div class="col-md-12" style="padding-left: 260px; padding-right: 10px;">
           <form id="formReporte">
@@ -42,11 +49,11 @@ $baseUrl = rtrim(dirname($_SERVER["SCRIPT_NAME"]), "/");
               <!-- Botones agrupados -->
               <div class="col-md-3" id="botoneraReportes">
                 <div class="row">
-                  <div class="col-xs-12" style="margin-bottom: 5px;">
-                    <button type="button" class="btn btn-success btn-block" id="btnLimpiar">Limpiar</button>
+                  <div class="col-xs-12" style="margin-bottom: 10px;">
+                    <button type="button" class="btn btn-success btn-block" id="btnLimpiar"><i class="fa fa-refresh"></i> LIMPIAR FILTROS</button>
                   </div>                  
-                  <div class="col-xs-12" style="margin-bottom: 5px;">
-                    <button type="button" class="btn btn-primary btn-block" id="btnExportarCSV">Exportar CSV</button>
+                  <div class="col-xs-12" style="margin-bottom: 10px;">
+                    <button type="button" class="btn btn-primary btn-block" id="btnExportarCSV"><i class="fa fa-file-excel-o"></i> EXPORTAR CSV</button>
                   </div>
                  
                   <div class="col-xs-12">
@@ -62,9 +69,9 @@ $baseUrl = rtrim(dirname($_SERVER["SCRIPT_NAME"]), "/");
 
           <hr>
 
-          <div class="table-responsive">
-            <table id="tablaReporte" class="table table-bordered table-striped display nowrap" width="100%">
-              <thead>
+          <div class="table-responsive" style="margin: 20px 0; border-radius: 5px; box-shadow: 0 3px 15px rgba(0,48,99,0.15); background-color: white; padding: 15px; overflow-x: auto; border: 1px solid #E8E2E2;">
+            <table id="tablaReporte" class="table table-bordered table-hover table-striped display nowrap" width="100%" style="font-size: 12px; margin-bottom: 0;">
+              <thead style="background-color: #0F225B; color: white; text-transform: uppercase; letter-spacing: 0.5px;">
                 <tr id="encabezadoTabla"></tr>
               </thead>
               <tbody id="cuerpoTabla"></tbody>
@@ -76,7 +83,21 @@ $baseUrl = rtrim(dirname($_SERVER["SCRIPT_NAME"]), "/");
     </div> <!-- box-body -->
 
     <div class="box-footer text-center">
-      <small>© SIRECO</small>
+      <small>© SIRECO - Grupo ASE</small>
     </div>
   </div>
-</section>
+  </section>
+</div>
+
+<style>
+  .content-wrapper label {
+    color: #0F225B;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .content-wrapper .form-control:focus {
+    border-color: #F85938;
+    box-shadow: 0 0 0 0.2rem rgba(248, 89, 56, 0.25);
+  }
+</style>

@@ -18,7 +18,7 @@ if (!tieneAcceso("checkManager")) {
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>NO ASPIRANTE</th>
+                            <th>ASP.</th>
                             <th>NOMBRE</th>
                             <th>A. PATERNO</th>
                             <th>A. MATERNO</th>

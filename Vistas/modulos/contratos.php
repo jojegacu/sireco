@@ -1,16 +1,20 @@
+<div class="candidatos-container">
 <!-- Input ID y botón Buscar -->
 <section class="content">
-  <div class="box box-success">
-    <div class="box-header with-border" align="center">
+  <div class="box">
+    <div class="box-header" align="center">
+      <div class="logo-container">
+        <img src="<?php echo $base_url; ?>Vistas/img/logoase-white.png" class="logo-candidatos" alt="Logo Grupo ASE">
+      </div>
       <h3 class="box-title">CONSULTA DE CANDIDATO</h3>
     </div>
     <div class="box-body">
       <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-6 col-md-offset-3">
           <div class="input-group">
-            <input type="text" class="form-control input-lg" id="buscarId" placeholder="Teclea el ID del candidato...">
+            <input type="text" class="form-control" id="buscarId" placeholder="Teclea el ID del candidato...">
             <span class="input-group-btn">
-              <button class="btn btn-info btn-lg" id="btnBuscarCandidato" type="button"
+              <button class="btn" id="btnBuscarCandidato" type="button"
                 onclick="
                   document.getElementById('idAspirante').value = document.getElementById('buscarId').value;
                   document.getElementById('idAspiranteArchivos').value = document.getElementById('buscarId').value;
@@ -26,7 +30,7 @@
 
       <!-- Resultado del aspirante -->
       <div id="datosAspirante" style="display: none;">
-        <h3>📌 Información del Candidato</h3>
+        <h1>INFORMACION DEL CANDIDATOS</h1>
         <div class="row">
           <div class="col-md-4"><label><b>Nombre(s):</b> <span id="aspNombre"></span></label></div>
           <div class="col-md-4"><label><b>Apellido Paterno:</b> <span id="aspPaterno"></span></label></div>
@@ -41,7 +45,7 @@
 
       <!-- Resultado de vacante -->
       <div id="datosVacante" style="display: none; margin-top: 30px;">
-        <h3>📌 Vacante Asignada</h3>
+        <h1>VACANTE ASIGNADA</h1>
         <div class="row">
           <div class="col-md-4"><label><b>Clave:</b> <span id="vacClave"></span></label></div>
           <div class="col-md-4"><label><b>Id:</b> <span id="vacId"></span></label></div>
@@ -56,9 +60,9 @@
 
       <!-- Botones de acción -->
       <div id="botonesAccion" style="display: none; margin-top: 30px;" align="center">
-        <button class="btn btn-primary btnGenerarContrato" data-id="">Registro de Datos</button>
-        <button class="btn btn-warning btnCargarDocs" data-id="">Carga de Documentos</button>
-        <a href="<?php echo $base_url; ?>contratos" class="btn btn-danger">Cancelar</a>
+        <button class="btn btn-primary btnGenerarContrato" data-id="">REGISTRO DE DATOS</button>
+        <button class="btn btn-warning btnCargarDocs" data-id="">CARGA DE DOCUMENTOS</button>
+        <a href="<?php echo $base_url; ?>contratos" class="btn btn-danger">CANCELAR</a>
       </div>
 
       <!-- Inputs ocultos para reutilizar -->
@@ -68,6 +72,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- Modal Contratación -->
 <div class="modal fade" id="modalContratacion" tabindex="-1" role="dialog">
@@ -232,3 +237,5 @@ document.querySelector(".btnCargarDocs").addEventListener("click", function () {
   document.getElementById("idAspiranteArchivos").value = id;
 });
 </script>
+
+</div> <!-- Cierre de candidatos-container -->

@@ -1,5 +1,4 @@
-
- 
+<div class="candidatos-container">
     <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
@@ -7,9 +6,9 @@
 
           <div class="box">
             <div class="box-header" align="center">
-              <a href="#" class="logo" >                 
-                  
-              </a>
+              <div class="logo-container">
+                <img src="<?php echo $base_url; ?>Vistas/img/logoase-white.png" class="logo-candidatos" alt="Logo Grupo ASE">
+              </div>
               <h3 class="box-title">REGISTRO DE CANDIDATOS</h3>
             </div>
             <!-- /.box-header -->
@@ -208,7 +207,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Confirmar Registro</button>
+                    <button type="button" class="btn btn-primary" id="guardarProcedenciaBtn">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                   </div>
                 </div>
@@ -219,7 +218,7 @@
        
     </section>
     <!-- /.content -->
- 
+ </div><!-- Fin de candidatos-container -->
 
   <?php
       $crearUsr = new aspiranteControlador();

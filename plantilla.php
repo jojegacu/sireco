@@ -30,8 +30,7 @@ $base_url = $protocolo . "://" . $host . "/sireco/";
   <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/bower_components/font-awesome/css/font-awesome.min.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/bower_components/Ionicons/css/ionicons.min.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/dist/css/AdminLTE.min.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/dist/css/skins/_all-skins.min.css?v=<?php echo time(); ?>">
+<!--  <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/dist/css/AdminLTE.min.css?v=<?php echo time(); ?>">-->
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
