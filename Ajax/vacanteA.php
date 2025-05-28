@@ -49,15 +49,27 @@ if (isset($_POST["eliminarVacante"])) {
 
 // Obtener datos de una vacante por ID
 if (isset($_POST["obtenerVacante"])) {
-  $vacante = vacanteControlador::ctrObtenerVacantePorId($_POST["id"]);
-  echo json_encode($vacante);
-  return;
+    if (!isset($_POST["idVacante"])) {
+        echo json_encode(["success" => false, "mensaje" => "Falta el ID de vacante"]);
+        return;
+    }
+
+    $vacante = vacanteControlador::ctrObtenerVacantePorId($_POST["idVacante"]);
+
+    if ($vacante) {
+        echo json_encode($vacante);
+    } else {
+        echo json_encode(["success" => false, "mensaje" => "Vacante no encontrada"]);
+    }
+    return;
 }
+
 
 // Actualizar vacante
 if (isset($_POST["actualizarVacante"])) {
   $datos = array(
-    "id" => $_POST["id"],
+    "idVacante" => $_POST["idVacante"],
+    "id"            => $_POST["id"], // ✅ ahora sí está definido correctamente
     "clave" => $_POST["clave"],
     "idRegionFk" => $_POST["idRegionFk"],
     "tienda" => $_POST["tienda"],

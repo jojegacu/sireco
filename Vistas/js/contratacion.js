@@ -121,6 +121,13 @@ $(document).on("submit", "#formContratacion", function (e) {
   const contEmergencia = $('input[name="contEmergencia"]').val();
   const numEmergencia = $('input[name="numEmergencia"]').val(); // O el tipo de input que uses para puesto
 
+   // Validar NSS: exactamente 10 dígitos
+  if (!/^\d{10}$/.test(nss)) {
+    alert("⚠️ El NSS debe contener exactamente 10 dígitos numéricos.");
+    $('input[name="nss"]').focus();
+    return;
+  }
+    
   $.ajax({
     url: "Ajax/contratacionA.php",
     method: "POST",
@@ -139,7 +146,7 @@ $(document).on("submit", "#formContratacion", function (e) {
     dataType: "json",
     success: function (respuesta) {
       if (respuesta == "ok") {
-        alert("✅ Información de contratación guardada correctamente.");
+        alert("✅ Información de contratación guardada correctamente. AHORA PUEDES CARGAR TUS DOCUMENTOS INGRESA NUEVAMENTE TU ID");
         $("#modalContratacion").modal("hide");
         location.reload();
       } else {

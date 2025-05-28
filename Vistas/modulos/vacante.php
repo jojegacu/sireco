@@ -27,6 +27,7 @@ if (!tieneAcceso("vacante")) {
 						<tr>
 							<th>NO.</th>
 							<th>ID</th>
+							<th>REG</th>
 							<th>CLAVE</th>
 							<th>TIENDA</th>
 							<th>CP</th>
@@ -49,6 +50,7 @@ if (!tieneAcceso("vacante")) {
 						      <tr>
 						        <td>'.$v["idVacante"].'</td>
 						        <td>'.$v["id"].'</td>
+						        <td>'.$v["region"].'</td>
 						        <td>'.$v["clave"].'</td>
 						        <td>'.$v["tienda"].'</td>
 						        <td>'.$v["cp"].'</td>
@@ -97,8 +99,9 @@ if (!tieneAcceso("vacante")) {
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body row">
-          <input type="hidden" id="edit_id" name="id">
+          <input type="hidden" id="edit_idVacante" name="idVacante">
           <input type="hidden" id="edit_clave" name="clave">
+          <input type="hidden" id="edit_id" name="id">
 
           <div class="col-lg-6">
             <label>Región</label>

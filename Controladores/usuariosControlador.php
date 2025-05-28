@@ -85,117 +85,102 @@ class usuariosControlador{
 	//OBTENER DATOS GENERALES
 
 	static public function editarUsrControlador(){
-		$tablaBD = "persona";
-		$exp = explode("/", $_GET["url"]);
-		$id = $exp[1];
-		$respuesta = usuariosModelo::editarUsrModelo($tablaBD, $id);
+  $tablaBD = "persona";
+  $exp = explode("/", $_GET["url"]);
+  $id = $exp[1];
+  $respuesta = usuariosModelo::editarUsrModelo($tablaBD, $id);
 
-    if ($respuesta && is_array($respuesta)) {
-		echo'<form method="post">
-            <div class="box-body">
-              <div class="row">              
-                <div class="col-lg-6">
-                  <div class="form-group">
-                  		<input type="hidden" name="uId" value="'.$respuesta["idPersona"].'">
-                       <h2>Apellidos</h2>
-                        <input class="form-control input-lg" type="text" name="apellidosUsr" value="'.$respuesta["apellidos"].'"required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                        <h2>Nombre</h2>
-                        <input class="form-control input-lg" type="text" name="nombreUsr" value="'.$respuesta["nombre"].'"required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-              </div>
+  if ($respuesta && is_array($respuesta)) {
+    echo'<form method="post">
+      <div class="box-body">
+        <div class="row">              
+        <div class="col-lg-6">
+          <div class="form-group">
+            <input type="hidden" name="uId" value="'.$respuesta["idPersona"].'">
+             <h2>Apellidos</h2>
+            <input class="form-control input-lg" type="text" name="apellidosUsr" value="'.$respuesta["apellidos"].'" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <h2>Nombre</h2>
+            <input class="form-control input-lg" type="text" name="nombreUsr" value="'.$respuesta["nombre"].'" required>
+          </div>
+        </div>
+        </div>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                       <h2>CURP</h2>
-                       <input class="form-control input-lg" type="text" name="curpUsr" onkeyup="javascript:this.value=this.value.toUpperCase();" value="'.$respuesta["curp"].'"required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <h2>RFC</h2>
-                      <input class="form-control input-lg" type="text" name="rfcUsr" onkeyup="javascript:this.value=this.value.toUpperCase();" value="'.$respuesta["rfc"].'"required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                       <h2>Correo</h2>
-                        <input class="form-control input-lg" type="text" name="emailUsr" value="'.$respuesta["email"].'"required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <h2>Telefono</h2>             
-                      <input class="form-control input-lg" type="text" name="telefonoUsr" value="'.$respuesta["telefono"].'"required>                      
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-              </div>
-              <!-- /.row -->
-              <div class="row">              
-                <div class="col-lg-6">
-                  <div class="form-group">
-                       <h2>Modificado: '.$respuesta["fechaCaptura"].'</h2>';
-                       date_default_timezone_set('America/Mexico_City'); 
-                  		$fecha_actual = date("d-m-Y h:i:s"); 
+        <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+             <h2>CURP</h2>
+             <input class="form-control input-lg" type="text" name="curpUsr" onkeyup="javascript:this.value=this.value.toUpperCase();" value="'.$respuesta["curp"].'" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <h2>RFC</h2>
+            <input class="form-control input-lg" type="text" name="rfcUsr" onkeyup="javascript:this.value=this.value.toUpperCase();" value="'.$respuesta["rfc"].'" required>
+          </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+             <h2>Correo</h2>
+            <input class="form-control input-lg" type="text" name="emailUsr" value="'.$respuesta["email"].'" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <h2>Telefono</h2>             
+            <input class="form-control input-lg" type="text" name="telefonoUsr" value="'.$respuesta["telefono"].'" required>                      
+          </div>
+        </div>
+        </div>
+        <div class="row">              
+        <div class="col-lg-6">
+          <div class="form-group">
+             <h2>Modificado: '.$respuesta["fechaCaptura"].'</h2>';
+             date_default_timezone_set('America/Mexico_City'); 
+            $fecha_actual = date("d-m-Y h:i:s"); 
 
-                  echo'<input class="form-control input-lg" type="text" name="fechaCaptura" value="'.$fecha_actual.'" required>
-                  </div>
+          echo'<input class="form-control input-lg" type="text" name="fechaCaptura" value="'.$fecha_actual.'" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">';
+          $tabla = "rol";
 
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="form-group">';
-                  if (isset($respuesta["idRolFk"])) {
-                  	$id=$respuesta["idRolFk"];
-                  	$tabla = "rol";
-                  	$roles = rolModelo::verRolModelo($id, $tabla); 
-                  	 echo '<h2>Rol: '.$roles["rol"].'</h2>';	                 
-                  }
-                  echo'<select name="idRolFk" class="form-control" required>';
-                  	$id = null;
-                  		$roles= rolModelo::verRolModelo($idRol, $tabla);
-                  			echo '<option>Cambiar Rol...</option>';
-                  		foreach ($roles as $key => $value) {
-                  			echo '<option value='.$value["idRol"].'>'.$value["rol"].'</option>';
-                  		}
-                  echo '</select>
-                  <input type="hidden" name="nuevo" value="1">
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-              </div>
-              <div class="form-group" align="center">
-                <button type="submit" class="btn btn-success">MODIFICAR</button>
-                <a href="../usuarios" class="btn btn-danger btn-flat">CANCELAR</a>                               
-              </div>
-          </form>';
-          } else {
-              echo '<script>
-                      window.location = "../usuarios";
-                    </script>';
+          if (isset($respuesta["idRolFk"])) {
+            $rolActual = rolModelo::verRolModelo($respuesta["idRolFk"], $tabla);
+            echo '<h2>Rol actual: '.$rolActual["rol"].'</h2>';
           }
-	}
+
+          echo '<select name="idRolFk" class="form-control" required>';
+          echo '<option value="">Cambiar Rol...</option>';
+
+          $roles = rolModelo::verRolModelo(null, $tabla);
+          foreach ($roles as $value) {
+            $selected = ($value["idRol"] == $respuesta["idRolFk"]) ? "selected" : "";
+            echo '<option value="'.$value["idRol"].'" '.$selected.'>'.$value["rol"].'</option>';
+          }
+          echo '</select>
+          <input type="hidden" name="nuevo" value="1">
+          </div>
+        </div>
+        </div>
+        <div class="form-group" align="center">
+        <button type="submit" class="btn btn-success">MODIFICAR</button>
+        <a href="../usuarios" class="btn btn-danger btn-flat">CANCELAR</a>                               
+        </div>
+      </form>';
+  } else {
+    echo '<script>
+        window.location = "../usuarios";
+        </script>';
+  }
+}
+
 
 	//ACTUALIZAR DATOS GENERALES
 	public static function actualizarUsrControlador(){
@@ -301,7 +286,7 @@ class usuariosControlador{
       $tablaBD = "empleado";
       $datosC = array("idEmpleado"=>$_POST["idEmp"], "nue"=>$_POST["nue"], "puesto"=>$_POST["puesto"], "area"=>$_POST["area"], "fechaAlta"=>$_POST["fechaAlta"], "idPersonaFk"=>$_POST["usrId"]);
       $resultado = usuariosModelo::actualizarUsrEmpModelo($tablaBD, $datosC);
-             if ($respuesta === true) {
+             if ($resultado === true) {
             echo '<script>
               alert("✅ Datos actualizados correctamente.");
               window.location = "usuarios";

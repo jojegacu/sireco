@@ -22,7 +22,7 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">INICIAR</button>
           <br>
           <div align="center">
-          <a href="<?php echo $base_url; ?>candidatos">>>ALTA DE NUEVOS USUARIOS<<</a>
+          <a href="<?php echo $base_url; ?>candidatos">>>REGISTRO DE CANDIDATOS<<</a>
           </div>
           
         </div>
