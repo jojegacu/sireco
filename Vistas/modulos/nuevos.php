@@ -11,6 +11,7 @@ if (!tieneAcceso("nuevos")) {
 <div class="content-wrapper">
     <section class="content-header">
         <h1>CANDIDATOS REGISTRADOS</h1>
+        <link rel="stylesheet" href="<?php echo $base_url; ?>Vistas/dist/css/nuevos-fix.css">
     </section>
     <section class="content">
         <div class="box">                   
@@ -44,7 +45,7 @@ if (!tieneAcceso("nuevos")) {
                                     <td>'.$value["estado"].'</td>
                                     <td>'.$value["telefonoCel"].'</td>              
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="btn-group clasificar-btns">
                                             <!-- Ver CV -->
                                             <button class="btn btn-info btnVerCv" data-id="'.$value["idAspirante"].'" title="Ver CV">
                                                 <i class="fa fa-file-pdf-o"></i>

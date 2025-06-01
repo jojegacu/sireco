@@ -44,7 +44,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                       <h2>FECHA DE NACIMIENTO</h2>
-                      <input class="form-control input-lg" type="date" name="fechaNacimiento" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                      <input class="form-control input-lg" type="date" name="fechaNacimiento" required>
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -207,7 +207,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="guardarProcedenciaBtn">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="guardarProcedenciaBtn">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                   </div>
                 </div>

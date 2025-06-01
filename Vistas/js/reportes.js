@@ -4,6 +4,73 @@ document.addEventListener('DOMContentLoaded', () => {
   const cuerpo = document.getElementById('cuerpoTabla');
   const btnLimpiar = document.getElementById('btnLimpiar');
   const btnExportarCSV = document.getElementById('btnExportarCSV');
+  const fechaInicioEl = document.querySelector('input[name="fechaInicio"]');
+  const fechaFinEl = document.querySelector('input[name="fechaFin"]');
+  
+  // Establecer fecha máxima como hoy
+  const hoy = new Date().toISOString().split('T')[0];
+  if (fechaInicioEl) fechaInicioEl.setAttribute('max', hoy);
+  if (fechaFinEl) fechaFinEl.setAttribute('max', hoy);
+  
+  // Función para validar fechas
+  function validarFechas() {
+    const fechaInicio = fechaInicioEl.value;
+    const fechaFin = fechaFinEl.value;
+    let esValido = true;
+    
+    // Restablecer estilos
+    fechaInicioEl.style.borderColor = '';
+    fechaFinEl.style.borderColor = '';
+    
+    // Quitar mensajes de error previos
+    const mensajesError = document.querySelectorAll('.fecha-error');
+    mensajesError.forEach(msg => msg.remove());
+    
+    // Si ambas fechas están establecidas, validar que la fecha de inicio sea anterior o igual a la fecha fin
+    if (fechaInicio && fechaFin) {
+      if (new Date(fechaInicio) > new Date(fechaFin)) {
+        // Mostrar error - la fecha de inicio es posterior a la fecha fin
+        const msgError = document.createElement('small');
+        msgError.className = 'fecha-error';
+        msgError.style.color = '#F85938';
+        msgError.style.display = 'block';
+        msgError.style.marginTop = '5px';
+        msgError.textContent = 'La fecha de inicio debe ser anterior o igual a la fecha fin';
+        
+        fechaInicioEl.style.borderColor = '#F85938';
+        fechaFinEl.style.borderColor = '#F85938';
+        fechaInicioEl.parentNode.appendChild(msgError);
+        
+        esValido = false;
+      }
+    }
+    
+    // Si solo una fecha está establecida, sugerir completar el rango
+    if ((fechaInicio && !fechaFin) || (!fechaInicio && fechaFin)) {
+      const campoIncompleto = !fechaInicio ? fechaInicioEl : fechaFinEl;
+      
+      const msgSugerencia = document.createElement('small');
+      msgSugerencia.className = 'fecha-error';
+      msgSugerencia.style.color = '#0F225B';
+      msgSugerencia.style.display = 'block';
+      msgSugerencia.style.marginTop = '5px';
+      msgSugerencia.textContent = 'Se recomienda completar el rango de fechas';
+      
+      campoIncompleto.style.borderColor = '#0F225B';
+      campoIncompleto.parentNode.appendChild(msgSugerencia);
+    }
+    
+    return esValido;
+  }
+  
+  // Añadir eventos de validación a los inputs de fecha
+  if (fechaInicioEl) {
+    fechaInicioEl.addEventListener('change', validarFechas);
+  }
+  
+  if (fechaFinEl) {
+    fechaFinEl.addEventListener('change', validarFechas);
+  }
 
   if (btnLimpiar) {
     btnLimpiar.addEventListener('click', () => {
@@ -19,11 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       
-      // Obtener los valores de fecha solo si se han seleccionado
-      const fechaInicioEl = document.querySelector('input[name="fechaInicio"]');
-      const fechaFinEl = document.querySelector('input[name="fechaFin"]');
-      const fechaInicio = fechaInicioEl && fechaInicioEl.value ? fechaInicioEl.value : '';
-      const fechaFin = fechaFinEl && fechaFinEl.value ? fechaFinEl.value : '';
+      // Validar fechas antes de exportar
+      if (!validarFechas()) {
+        return;
+      }
+      
+      // Obtener los valores de fecha
+      const fechaInicio = fechaInicioEl.value;
+      const fechaFin = fechaFinEl.value;
       
       // Obtener las columnas visibles si existe la tabla DataTable
       let columnasVisibles = [];
@@ -97,14 +167,17 @@ document.addEventListener('DOMContentLoaded', () => {
   combo.addEventListener('change', () => {
     const estatus = combo.value;
     if (estatus === "") return;
+    
+    // Validar fechas antes de generar el reporte
+    validarFechas();
 
     const formData = new FormData();
     formData.append("accion", "generarPorEstatus");
     formData.append("estatus", estatus);
 
-    // 🟨 NUEVO: agrega valores de fecha
-    const fechaInicio = document.querySelector('input[name="fechaInicio"]').value;
-    const fechaFin = document.querySelector('input[name="fechaFin"]').value;
+    // Obtener y enviar valores de fecha
+    const fechaInicio = fechaInicioEl.value;
+    const fechaFin = fechaFinEl.value;
     formData.append("fechaInicio", fechaInicio);
     formData.append("fechaFin", fechaFin);
 

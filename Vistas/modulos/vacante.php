@@ -17,7 +17,7 @@ if (!tieneAcceso("vacante")) {
 		<div class="box">
 			<div class="box-header">
 				<a href="<?php echo $base_url; ?>altaVac">
-				  <button class="btn btn-primary">REGISTRO DE VACANTE</button>
+				  <button class="btn btn-primary" id="btn-azul">REGISTRO DE VACANTE</button>
 				</a>
 
 			</div>		
