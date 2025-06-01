@@ -160,7 +160,7 @@ if (!tieneAcceso("contratacion")) {
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>NSS</label>
-              <input type="text" class="form-control" name="nss" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos">
+              <input type="text" class="form-control" name="nss" required maxlength="11" pattern="^\d{11}$" inputmode="numeric" title="Debe contener exactamente 11 dígitos">
             </div>
             <div class="form-group col-md-4">
               <label>Estado Civil</label>

@@ -99,7 +99,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                       <h2>TELEFONO</h2>             
-                      <input class="form-control input-lg" type="number" name="telefonoCel" id="telefonoCel" minlength="10" maxlength="10" oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);" required>
+                      <input class="form-control input-lg" type="text" name="telefonoCel" id="telefonoCel" minlength="10" maxlength="10" oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);" required>
                   </div>
                   <!-- /input-group -->
                 </div>

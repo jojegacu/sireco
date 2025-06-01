@@ -179,7 +179,7 @@ if (!tieneAcceso("nuevos")) {
           <div class="row">
             <div class="form-group col-md-4">
               <label>Teléfono Celular</label>
-              <input type="text" class="form-control" name="telefonoCel" id="telefonoCelGenerales">
+              <input type="text" class="form-control" name="telefonoCel" id="telefonoCelGenerales" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
             </div>
             <div class="form-group col-md-4">
               <label>Fecha de Captura</label>

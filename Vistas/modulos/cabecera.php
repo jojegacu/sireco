@@ -62,13 +62,8 @@
               <li class="user-header" style="height: 100px;">
 
                 <?php
-
-                  if ($_SESSION["rol"] == "ADMINISTRADOR") {
-
-                      echo '<p>'.$_SESSION["apellidos"]." ".$_SESSION["nombre"].' - ADMINISTRADOR</p>' ;
-          
-                  }
-                ?>
+                   echo $_SESSION["apellidos"] . " " . $_SESSION["nombre"] . ' - ' . strtoupper($_SESSION["rol"]);
+               ?>
                 
               </li>
               <!-- Menu Body -->
