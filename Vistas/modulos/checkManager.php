@@ -44,7 +44,7 @@ if (!tieneAcceso("checkManager")) {
                                     <td>'.$value["estado"].'</td>
                                     <td>'.$value["telefonoCel"].'</td>
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="btn-group clasificar-btns">
                                             <!-- Ver CV -->
                                             <button class="btn btn-info btnVerCv" data-id="'.$value["idAspirante"].'" title="Ver CV">
                                                 <i class="fa fa-file-pdf-o"></i>

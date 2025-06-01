@@ -17,7 +17,7 @@ if (!tieneAcceso("usuarios")) {
 		<div class="box">
 			<div class="box-header">
 				<a href="<?php echo $base_url; ?>crearUsr">
-				  <button class="btn btn-primary">REGISTRO DE OPERADOR</button>
+				  <button class="btn btn-primary" id="btn-azul">REGISTRO DE OPERADOR</button>
 				</a>
 
 			</div>		

@@ -201,19 +201,34 @@ document.addEventListener("DOMContentLoaded", function () {
   const listaSugerencias = document.createElement("ul");
   listaSugerencias.setAttribute("id", "lista-sugerencias-cp");
   listaSugerencias.classList.add("list-group");
-  listaSugerencias.style.position = "absolute";
-  listaSugerencias.style.zIndex = "1000";
-  listaSugerencias.style.width = "100%";
+  listaSugerencias.style.position = "fixed";
+  listaSugerencias.style.zIndex = "9999";
+  listaSugerencias.style.width = "auto";
+  listaSugerencias.style.minWidth = "250px";
+  listaSugerencias.style.maxHeight = "300px";
+  listaSugerencias.style.overflowY = "auto";
   listaSugerencias.style.display = "none";
+  listaSugerencias.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
 
-  inputCP.parentNode.appendChild(listaSugerencias);
+  // Añadir al body en lugar de al contenedor del input para evitar recortes
+  document.body.appendChild(listaSugerencias);
 
+  // Función para posicionar la lista de sugerencias
+  function posicionarListaSugerencias() {
+    const rect = inputCP.getBoundingClientRect();
+    listaSugerencias.style.top = rect.bottom + window.scrollY + "px";
+    listaSugerencias.style.left = rect.left + window.scrollX + "px";
+    listaSugerencias.style.width = rect.width + "px";
+  }
+
+  // Evento para posicionar la lista cuando se interactúa con el input
   inputCP.addEventListener("input", function () {
     const codigoPostal = inputCP.value.trim();
     if (codigoPostal.length < 5) {
       listaSugerencias.style.display = "none";
       return;
     }
+    posicionarListaSugerencias();
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", baseUrl + "Ajax/aspirantesA.php", true);
@@ -243,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
               listaSugerencias.appendChild(item);
             });
             listaSugerencias.style.display = "block";
+            posicionarListaSugerencias(); // Asegurar posicionamiento correcto fuera del modal
           } else {
             listaSugerencias.style.display = "none";
           }

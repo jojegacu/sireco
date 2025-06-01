@@ -194,37 +194,42 @@ class ReportesController
             'SI'                                             // SBC por antigüedad - predefinido
         ];
         
-        // Crear un archivo temporal
-        $tmpFile = tempnam(sys_get_temp_dir(), 'layout_');
-        $handle = fopen($tmpFile, 'w');
-        
-        // Agregar BOM para UTF-8
-        fputs($handle, "\xEF\xBB\xBF");
-        
-        // Escribir encabezados
-        fputcsv($handle, $columnas);
-        
-        // Escribir la fila de datos (convirtiendo todo a texto)
-        $layoutDataStrings = array_map('strval', $layoutData);
-        fputcsv($handle, $layoutDataStrings);
-        
-        fclose($handle);
-        
-        // Leer el contenido generado
-        $content = file_get_contents($tmpFile);
-        unlink($tmpFile); // Eliminar el archivo temporal
-        
-        // Modificar el contenido para asegurarnos que los códigos postales se tratan como texto
-        // Excel interpreta como texto cuando hay un espacio antes del valor
-        $content = preg_replace('/(,)(0+\d+)/', '$1="$2"', $content);
-        
-        // Configurar encabezados para descarga CSV
+        // Deshabilitar el buffer de salida para evitar problemas
+        if (ob_get_level()) ob_end_clean();
+
+        // Configurar encabezados para descarga CSV con UTF-8
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=layout_' . ($datos['nombre'] ?? 'aspirante') . '_' . date('Y-m-d') . '.csv');
-        header('Content-Length: ' . strlen($content));
+        header('Pragma: no-cache');
+        header('Expires: 0');
         
-        // Enviar el contenido modificado y finalizar
-        echo $content;
+        // Abrir salida directa
+        $output = fopen('php://output', 'w');
+        
+        // Agregar BOM para UTF-8 (para Excel)
+        fputs($output, "\xEF\xBB\xBF");
+        
+        // Modificar los valores numéricos para que no se exporten con = y comillas
+        foreach ($layoutData as $key => $value) {
+            // Si es un valor numérico, quitar formato especial
+            if (is_string($value) && preg_match('/^[0-9]+$/', $value)) {
+                $layoutData[$key] = $value;
+            }
+            
+            // Asegurarse de que está definido
+            if ($layoutData[$key] === null) {
+                $layoutData[$key] = '';
+            }
+        }
+        
+        // Escribir encabezados
+        fputcsv($output, $columnas);
+        
+        // Escribir datos
+        fputcsv($output, $layoutData);
+        
+        // Cerrar la salida
+        fclose($output);
         exit;
     }
 }

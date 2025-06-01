@@ -33,7 +33,7 @@ if (!tieneAcceso("roles")) {
   								echo '<input class="form-control input-lg" type="hidden" name="fechaProy" value="'.$fecha_actual.'" required>';
 							  ?>
 					</div>
-					<button type="submit" class="btn btn-primary">CREAR ROL</button>
+					<button type="submit"  id="btn-azul">CREAR ROL</button>
 				</form>
 				<?php
 					$crearRol = new rolControlador();

@@ -16,7 +16,7 @@ if (!tieneAcceso("altaVac")) {
         <div class="box">
           <div class="box-header" align="center">
             <a href="#" class="logo"></a>
-            <h3>VACANTES DISPONIBLES</h3>
+            <h1>VACANTES DISPONIBLES</h1>
           </div>
 
           <form id="formVacante" method="post" enctype="multipart/form-data">
@@ -107,9 +107,9 @@ if (!tieneAcceso("altaVac")) {
                 </script>
 
                 <div align="center" class="form-group col-lg-12">
-                  <a class="btn btn-primary btn-flat" href="<?php echo $base_url; ?>vacante">FINALIZAR</a>
-                  <button class="btn btn-success" type="submit">REGISTRAR</button>
-                  <a class="btn btn-danger btn-flat" href="<?php echo $base_url; ?>altaVac">LIMPIAR</a>
+                  <a class="btn btn-primary btn-flat" href="<?php echo $base_url; ?>vacante" id="btn-azul">FINALIZAR</a>
+                  <button class="btn btn-success" type="submit" id="btn-verde">REGISTRAR</button>
+                  <a class="btn btn-danger btn-flat" href="<?php echo $base_url; ?>altaVac" id="btn-rojo">LIMPIAR</a>
                 </div>
               </div>
 
