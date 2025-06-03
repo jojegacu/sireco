@@ -1274,6 +1274,9 @@ body .modal .btn-danger:hover,
   border-radius: calc(var(--border-radius) - 2px);
   border: 1px solid rgba(232, 226, 226, 0.8);
   padding: 8px 12px;
+  height: auto; /* Permitir que la altura se ajuste al contenido */
+  line-height: normal; /* Usar altura de línea normal para el texto */
+  box-sizing: border-box; /* Incluir padding y border en el cálculo de la altura total */
 }
 
 .modal .form-control:focus {
@@ -1304,8 +1307,110 @@ body .modal .btn-danger:hover,
   font-weight: 600;
 }
 
+/* Reglas específicas para editarUsr.php */
+section.content .row .col-xs-12 .box,
+.content-wrapper section.content .row .col-xs-12 .box,
+section.content > .row > .col-xs-12 > .box {
+  width: 95% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  float: none !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  border-radius: var(--border-radius) !important;
+  overflow: visible !important;
+  box-shadow: var(--shadow-medium) !important;
+}
+
+/* Contenedor principal del formulario */
+section.content .row,
+.content-wrapper section.content .row {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+}
+
+/* Ajustar espaciado en el contenedor para mejor centrado */
+section.content > .row,
+.content-wrapper section.content > .row {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  box-sizing: border-box !important;
+}
+
+/* Ajuste para inputs y selects del formulario */
+.content-wrapper section.content .row .col-xs-12 .box .box-body .form-group input,
+.content-wrapper section.content .row .col-xs-12 .box .box-body .form-group select {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: 44px !important;
+  padding: 10px 15px !important;
+}
+
+/* Ajustes responsivos para dispositivos móviles */
+@media (max-width: 767px) {
+  
+  section.content .row .col-xs-12 .box,
+  .content-wrapper section.content .row .col-xs-12 .box,
+  section.content > .row > .col-xs-12 > .box {
+    width: 100% !important;
+    padding: 15px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 0 !important;
+  }
+  
+  .content-wrapper .box .box-header {
+    padding: 15px 10px !important;
+  }
+  
+  .content-wrapper .box .box-body {
+    padding: 10px !important;
+  }
+  
+  .content-wrapper .box .form-group {
+    margin-bottom: 10px !important;
+  }
+  
+  .content-wrapper section.content .row .col-xs-12 .box .box-body .form-group input,
+  .content-wrapper section.content .row .col-xs-12 .box .box-body .form-group select {
+    height: 38px !important;
+    font-size: 14px !important;
+  }
+  
+  .content-wrapper .box .box-footer {
+    padding: 15px 10px !important;
+    text-align: center !important;
+  }
+  
+  .content-wrapper .box .box-footer .btn {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* Ajuste responsive para tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .content-wrapper .box .col-lg-6,
+  section.content .row .box .col-lg-6,
+  .content-wrapper section.content .row .box .col-lg-6 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
 /* Responsividad */
 @media (max-width: 767px) {
+  
   .titulo-principal {
     font-size: 28px;
   }
@@ -1477,23 +1582,58 @@ body .modal .btn-danger:hover,
 }
 
 /* Estilos para los formularios de edición de usuarios y roles */
-.content-wrapper .box[style*="margin-left: 20%"],
-.content-wrapper .content .box {
-  
+/* Reglas agresivas para asegurar que los boxes ocupen todo el ancho */
+.content-wrapper .box,
+.content-wrapper .content .box,
+.box,
+section.content .box,
+section .box,
+div.box,
+.content-wrapper section.content .box,
+.content-wrapper section.content .row .box,
+body .content-wrapper section.content .row .box,
+html body .content-wrapper section.content .row .box {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  position: relative !important;
+  display: block !important;
+  float: none !important;
+  clear: both !important;
   border-radius: var(--border-radius) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
   border-top: 3px solid var(--color-secundario) !important;
   padding-bottom: 20px !important;
+  box-sizing: border-box !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .box-header {
+/* Asegurar que el contenido del formulario ocupe todo el ancho */
+.content-wrapper .box .box-body,
+.content-wrapper .content .box .box-body,
+.content-wrapper section.content .row .box .box-body,
+section.content .row .box .box-body,
+.content section.content .row .box .box-body {
+  width: 100% !important;
+  padding: 15px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.content-wrapper .box .box-header {
+  position: relative !important;
+  padding: 25px 20px !important;
   background-color: white !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
   padding: 20px !important;
   text-align: center !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .box-title {
+.content-wrapper .box .box-title {
+  position: relative !important;
+  display: inline-block !important;
+  padding-bottom: 10px !important;
   color: var(--color-secundario) !important;
   font-family: 'Mont', 'Helvetica Neue', sans-serif !important;
   font-weight: 600 !important;
@@ -1501,33 +1641,70 @@ body .modal .btn-danger:hover,
   text-transform: capitalize !important;
 }
 
+.content-wrapper .box .box-title:after {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  width: 80px !important;
+  height: 3px !important;
+  background-color: var(--color-primario) !important;
+  transform: translateX(-50%) !important;
+  border-radius: 2px !important;
+}
+
 /* Estilo para los formularios dentro de los boxes */
-.content-wrapper .box[style*="margin-left: 20%"] form,
+.content-wrapper .box form,
 .content-wrapper .content .box form {
   padding: 15px !important;
 }
 
 /* Mejora de la distribución en columnas para formularios */
-.content-wrapper .box[style*="margin-left: 20%"] .row,
+.content-wrapper .box .row,
 .content-wrapper .content .box .row {
   display: flex !important;
   flex-wrap: wrap !important;
   margin-right: -10px !important;
   margin-left: -10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .row > div,
+.content-wrapper .box .row > div,
 .content-wrapper .content .box .row > div {
   padding-left: 10px !important;
   padding-right: 10px !important;
+  box-sizing: border-box !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .form-group,
+/* Asegurar que las columnas respetan el ancho completo */
+.content-wrapper .box .col-lg-6,
+.content-wrapper .content .box .col-lg-6,
+.content-wrapper section.content .row .box .col-lg-6,
+section.content .row .col-lg-6,
+section.content .row .box .form-group .col-lg-6 {
+  width: 50% !important;
+  flex: 0 0 50% !important;
+  max-width: 50% !important;
+}
+
+/* Formularios ocupan todo el ancho */
+.content-wrapper .box form,
+.content-wrapper .content .box form,
+section.content .row .box form,
+.content-wrapper section.content .row .box form,
+.content section.content .row .box form {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+.content-wrapper .box .form-group,
 .content-wrapper .content .box .form-group {
   margin-bottom: 15px !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] label,
+.content-wrapper .box label,
 .content-wrapper .content .box label {
   color: var(--color-secundario) !important;
   font-weight: 600 !important;
@@ -1535,7 +1712,7 @@ body .modal .btn-danger:hover,
   font-family: 'Mont', 'Helvetica Neue', sans-serif !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .form-control,
+.content-wrapper .box .form-control,
 .content-wrapper .content .box .form-control {
   border-radius: 4px !important;
   border: 1px solid #dee2e6 !important;
@@ -1545,7 +1722,7 @@ body .modal .btn-danger:hover,
   transition: border-color 0.2s ease !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] .form-control:focus,
+.content-wrapper .box .form-control:focus,
 .content-wrapper .candidatos-container .form-control:focus {
   border-color: white !important;
   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.3) !important;
@@ -1554,7 +1731,7 @@ body .modal .btn-danger:hover,
 }
 
 /* Estilos para los botones del formulario de edición */
-.content-wrapper .box[style*="margin-left: 20%"] form .btn-primary,
+.content-wrapper .box form .btn-primary,
 .content-wrapper .content .box form .btn-primary:not(.btn-success):not(.btn-warning):not(.btn-danger) {
   background-color: var(--color-primario) !important;
   border-color: var(--color-primario) !important;
@@ -1565,15 +1742,15 @@ body .modal .btn-danger:hover,
   transition: all 0.2s ease !important;
 }
 
-.content-wrapper .box[style*="margin-left: 20%"] form .btn-primary:hover,
+.content-wrapper .box form .btn-primary:hover,
 .content-wrapper .content .box form .btn-primary:not(.btn-success):not(.btn-warning):not(.btn-danger):hover {
   background-color: #e54e2e !important;
   box-shadow: 0 4px 8px rgba(248, 89, 56, 0.2) !important;
 }
 
 /* Estilos para encabezados h2 dentro de los formularios */
-.content-wrapper .box[style*="margin-left: 20%"] h2,
-.content-wrapper .box[style*="margin-left: 20%"] .h2,
+.content-wrapper .box h2,
+.content-wrapper .box .h2,
 .content-wrapper .content .box h2,
 .content-wrapper .content .box .h2 {
   color: var(--color-secundario) !important;
@@ -1600,6 +1777,7 @@ body .modal .btn-danger:hover,
 
 /* Asegurar que el logotipo y la barra de navegación tengan el color correcto en móvil */
 @media (max-width: 767px) {
+  
   .skin-black-light .main-header .navbar .sidebar-toggle,
   .skin-black-light .main-header .logo,
   .skin-black-light .main-header .navbar {
@@ -1736,6 +1914,63 @@ body .modal .btn-danger:hover,
 #notificacionLista li:last-child {
   border-bottom: none !important;
   margin-bottom: 0 !important;
+}
+
+/* Estilos para modales */
+.modal .modal-dialog {
+  margin-top: 100px !important;
+}
+
+/* Etiquetas más grandes para modales */
+.modal .modal-body label,
+.modal-content .modal-body .form-group label {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  margin-bottom: 10px !important;
+  display: block !important;
+  color: var(--color-secundario) !important;
+}
+
+/* Ajustes para modales en dispositivos móviles */
+@media (max-width: 767px) {
+  .modal .modal-body label,
+  .modal-content .modal-body .form-group label {
+    font-size: 16px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .modal .modal-title {
+    font-size: 18px !important;
+  }
+  
+  .modal .modal-body {
+    padding: 15px !important;
+  }
+  
+  .modal .modal-dialog {
+    margin: 10px auto !important;
+    width: 95% !important;
+  }
+  
+  .modal .btn {
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+.modal .modal-title {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: var(--color-secundario) !important;
+}
+
+.modal .modal-header {
+  padding: 15px 20px !important;
+  border-bottom: 2px solid var(--color-primario) !important;
+}
+
+.modal .modal-body {
+  padding: 20px !important;
 }
 
 /* Estilos para el modal del chat */
@@ -2347,6 +2582,7 @@ body .modal .btn-danger:hover,
 
 /* Aseguramos que los contenedores se adapten a pantallas pequeñas */
 @media (max-width: 767px) {
+  
   .box, .box-primary, .panel {
     width: 100%;
     margin: 0 0 20px 0;
@@ -2392,7 +2628,7 @@ body .modal .btn-danger:hover,
 /* Tabletas (portrait) */
 @media (max-width: 991px) {
   /* Ajuste para contenedores principales */
-  .content-wrapper .box[style*="margin-left: 20%"] {
+  .content-wrapper .box {
     margin-left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -2424,6 +2660,7 @@ body .modal .btn-danger:hover,
 
 /* Móviles (landscape y portrait) */
 @media (max-width: 767px) {
+  
   /* Ajustes específicos para página de inicio en móviles */
   .welcome-container {
     max-width: 95%;

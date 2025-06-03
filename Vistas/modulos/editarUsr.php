@@ -13,9 +13,9 @@ if (!tieneAcceso("editarUsr")) {
     <!-- Main content -->
     <section class="content" >
       <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-9" style="width: 100% !important;">
 
-          <div class="box" style="margin-left: 20%;">
+          <div class="box" >
             <div class="box-header" align="center">
               <h3 class="box-title">REGISTRO DE DATOS GENERALES</h3>
             </div>
