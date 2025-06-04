@@ -145,45 +145,51 @@ if (!tieneAcceso("contratacion")) {
 
 
 <!-- FORMULARIO Contratación -->
-        <form id="formContratacion" enctype="multipart/form-data">
-          <input type="hidden" name="idAspirante" id="idAspirante">
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>Género</label>
-              <select class="form-control" name="genero" required></select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>CURP</label>
-              <input type="text" class="form-control" name="curpAsp" required maxlength="18" pattern="^[A-Z0-9]{18}$" style="text-transform:uppercase;" title="Debe contener exactamente 18 caracteres alfanuméricos">
+        <!-- FORMULARIO Contratación -->
+<form id="formContratacion" enctype="multipart/form-data">
+  <input type="hidden" name="idAspirante" id="idAspirante">
 
-            </div>
-            <div class="form-group col-md-4">
-              <label>RFC</label>
-              <input type="text" class="form-control" name="rfcAsp" required maxlength="13" pattern="^[A-Z0-9]{12,13}$" style="text-transform:uppercase;" title="Debe contener 12 o 13 caracteres alfanuméricos">
+  <!-- Fila 1 -->
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label>Género</label>
+      <select class="form-control" name="genero" required></select>
+    </div>
+    <div class="form-group col-md-4">
+      <label>CURP</label>
+      <input type="text" class="form-control" name="curpAsp" required maxlength="18" pattern="^[A-Z0-9]{18}$" style="text-transform:uppercase;" title="Debe contener exactamente 18 caracteres alfanuméricos">
+    </div>
+    <div class="form-group col-md-4">
+      <label>RFC</label>
+      <input type="text" class="form-control" name="rfcAsp" required maxlength="13" pattern="^[A-Z0-9]{12,13}$" style="text-transform:uppercase;" title="Debe contener 12 o 13 caracteres alfanuméricos">
+    </div>
+  </div>
 
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>NSS</label>
-              <input type="text" class="form-control" name="nss" required maxlength="11" pattern="^\d{11}$" inputmode="numeric" title="Debe contener exactamente 11 dígitos">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Estado Civil</label>
-              <select class="form-control" name="edoCivil" required></select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Tel. de Emergencia</label>
-              <input type="text" class="form-control" name="numEmergencia" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
+  <!-- Fila 2 -->
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label>NSS</label>
+      <input type="text" class="form-control" name="nss" required maxlength="11" pattern="^\d{11}$" inputmode="numeric" title="Debe contener exactamente 11 dígitos">
+    </div>
+    <div class="form-group col-md-4">
+      <label>Estado Civil</label>
+      <select class="form-control" name="edoCivil" required></select>
+    </div>
+    <div class="form-group col-md-4">
+      <label>Tel. de Emergencia</label>
+      <input type="text" class="form-control" name="numEmergencia" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
+    </div>
+  </div>
 
-              
-            </div>
-            <div class="form-group col-md-12">
-              <label>Contacto de Emergencia</label>
-              <input type="text" class="form-control" name="contEmergencia" required>
-            </div>
-            
-          </div>
+  <!-- Fila 3 -->
+  <div class="row">
+    <div class="form-group col-md-12">
+      <label>Contacto de Emergencia</label>
+      <input type="text" class="form-control" name="contEmergencia" required>
+    </div>
+  </div>
+</form>
+
         </form>
 
         <hr>        

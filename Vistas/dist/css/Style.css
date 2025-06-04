@@ -2852,3 +2852,11 @@ section.content .row .box form,
     max-width: 130px;
   }
 }
+/* Corrige altura para campos de tipo fecha */
+.modal input[type="date"] {
+  height: 34px !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+}
