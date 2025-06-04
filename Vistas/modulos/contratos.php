@@ -88,45 +88,51 @@
 
 
 <!-- FORMULARIO Contratación -->
-        <form id="formContratacion" enctype="multipart/form-data">
-          <input type="hidden" name="idAspirante" id="idAspirante">
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>Género</label>
-              <select class="form-control" name="genero" required></select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>CURP</label>
-             <input type="text" class="form-control" name="curpAsp" required maxlength="18" pattern="^[A-Z0-9]{18}$" style="text-transform:uppercase;" title="Debe contener exactamente 18 caracteres alfanuméricos">
+        <!-- FORMULARIO Contratación -->
+<form id="formContratacion" enctype="multipart/form-data">
+  <input type="hidden" name="idAspirante" id="idAspirante">
 
-            </div>
-            <div class="form-group col-md-4">
-              <label>RFC</label>
-              <input type="text" class="form-control" name="rfcAsp" required maxlength="13" pattern="^[A-Z0-9]{12,13}$" style="text-transform:uppercase;" title="Debe contener 12 o 13 caracteres alfanuméricos">
+  <!-- Fila 1 -->
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label>Género</label>
+      <select class="form-control" name="genero" required></select>
+    </div>
+    <div class="form-group col-md-4">
+      <label>CURP</label>
+      <input type="text" class="form-control" name="curpAsp" required maxlength="18" pattern="^[A-Z0-9]{18}$" style="text-transform:uppercase;" title="Debe contener exactamente 18 caracteres alfanuméricos">
+    </div>
+    <div class="form-group col-md-4">
+      <label>RFC</label>
+      <input type="text" class="form-control" name="rfcAsp" required maxlength="13" pattern="^[A-Z0-9]{12,13}$" style="text-transform:uppercase;" title="Debe contener 12 o 13 caracteres alfanuméricos">
+    </div>
+  </div>
 
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>NSS</label>
-             <input type="text" class="form-control" name="nss" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos">
+  <!-- Fila 2 -->
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label>NSS</label>
+      <input type="text" class="form-control" name="nss" required maxlength="11" pattern="^\d{11}$" inputmode="numeric" title="Debe contener exactamente 11 dígitos">
+    </div>
+    <div class="form-group col-md-4">
+      <label>Estado Civil</label>
+      <select class="form-control" name="edoCivil" required></select>
+    </div>
+    <div class="form-group col-md-4">
+      <label>Tel. de Emergencia</label>
+      <input type="text" class="form-control" name="numEmergencia" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
+    </div>
+  </div>
 
-            </div>
-            <div class="form-group col-md-4">
-              <label>Estado Civil</label>
-              <select class="form-control" name="edoCivil" required></select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Tel. de Emergencia</label>
-               <input type="text" class="form-control" name="numEmergencia" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
+  <!-- Fila 3 -->
+  <div class="row">
+    <div class="form-group col-md-12">
+      <label>Nombre del contacto de emergencia</label>
+      <input type="text" class="form-control" name="contEmergencia" required>
+    </div>
+  </div>
+</form>
 
-            </div>
-            <div class="form-group col-md-12">
-              <label>Contacto de Emergencia</label>
-              <input type="text" class="form-control" name="contEmergencia" required>
-            </div>
-            
-          </div>
         </form>
 
         <hr>        
@@ -156,70 +162,95 @@
         <form id="formularioArchivos" enctype="multipart/form-data">
           <input type="hidden" id="idAspiranteArchivos" name="idAspiranteArchivos">
 
-          <!-- Inputs de documentos -->
-          <div class="form-group">
-            <label>Acta de Nacimiento</label>
-            <input type="file" name="ac" id="ac" class="form-control">
-            <input type="checkbox" id="chk_ac" class="check-doc" disabled> Documento cargado
-            <a id="link_ac" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+          <div class="row">
+            <!-- Acta de Nacimiento -->
+            <div class="col-md-6 form-group">
+              <label>Acta de Nacimiento</label>
+              <input type="file" name="ac" id="ac" class="form-control">
+              <input type="checkbox" id="chk_ac" class="check-doc" disabled> Documento cargado
+              <a id="link_ac" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
+
+            <!-- Comprobante de Domicilio -->
+            <div class="col-md-6 form-group">
+              <label>Comprobante de Domicilio</label>
+              <input type="file" name="cp" id="cp" class="form-control">
+              <input type="checkbox" id="chk_cp" class="check-doc" disabled> Documento cargado
+              <a id="link_cp" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Comprobante de Domicilio</label>
-            <input type="file" name="cp" id="cp" class="form-control">
-            <input type="checkbox" id="chk_cp" class="check-doc" disabled> Documento cargado
-            <a id="link_cp" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+          <div class="row">
+            <!-- Situación Fiscal -->
+            <div class="col-md-6 form-group">
+              <label>Situación Fiscal (RFC)</label>
+              <input type="file" name="sf" id="sf" class="form-control">
+              <input type="checkbox" id="chk_sf" class="check-doc" disabled> Documento cargado
+              <a id="link_sf" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
+
+            <!-- Identificación Oficial -->
+            <div class="col-md-6 form-group">
+              <label>Identificación Oficial (INE)</label>
+              <input type="file" name="in" id="in" class="form-control">
+              <input type="checkbox" id="chk_in" class="check-doc" disabled> Documento cargado
+              <a id="link_in" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Situacion Fiscal</label>
-            <input type="file" name="sf" id="sf" class="form-control">
-            <input type="checkbox" id="chk_sf" class="check-doc" disabled> Documento cargado
-            <a id="link_sf" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+          <div class="row">
+            <!-- Contrato Bancaria -->
+            <div class="col-md-6 form-group">
+              <label>Contrato Bancaria</label>
+              <input type="file" name="cb" id="cb" class="form-control">
+              <input type="checkbox" id="chk_cb" class="check-doc" disabled> Documento cargado
+              <a id="link_cb" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
+
+            <!-- Formato NSS -->
+            <div class="col-md-6 form-group">
+              <label>Formato Número de Seguro Social</label>
+              <input type="file" name="dn" id="dn" class="form-control">
+              <input type="checkbox" id="chk_dn" class="check-doc" disabled> Documento cargado
+              <a id="link_dn" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Identificación Oficial</label>
-            <input type="file" name="in" id="in" class="form-control">
-            <input type="checkbox" id="chk_in" class="check-doc" disabled> Documento cargado
-            <a id="link_in" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+          <div class="row">
+            <!-- CURP -->
+            <div class="col-md-6 form-group">
+              <label>CURP</label>
+              <input type="file" name="dc" id="dc" class="form-control">
+              <input type="checkbox" id="chk_dc" class="check-doc" disabled> Documento cargado
+              <a id="link_dc" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Foto del Trabajador</label>
+              <input type="file" name="ft" id="ft" accept=".pdf,.jpg,.jpeg,.png" class="form-control">
+              <input type="checkbox" id="chk_ft" class="check-doc" disabled> Documento cargado
+              <a id="link_ft" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>            
+            
           </div>
 
-          <div class="form-group">
-            <label>Contrato Bancario</label>
-            <input type="file" name="cb" id="cb" class="form-control">
-            <input type="checkbox" id="chk_cb" class="check-doc" disabled> Documento cargado
-            <a id="link_cb" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
-          </div>
+          <div class="row">
+            <!-- Foto del Trabajador -->
+            
+            <div class="col-md-6 form-group">
+              <label>INFONAVIT</label>
+              <input type="file" name="ci" id="ci" class="form-control">
+              <input type="checkbox" id="chk_ci" disabled> Documento cargado
+              <a id="link_ci" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
 
-          <div class="form-group">
-            <label>Formato Numero de Seguro Social</label>
-            <input type="file" name="dn" id="dn" class="form-control">
-            <input type="checkbox" id="chk_dn" class="check-doc" disabled> Documento cargado
-            <a id="link_dn" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            <!-- Fonacot -->
+            <div class="col-md-6 form-group">
+              <label>FONACOT</label>
+              <input type="file" name="fonacot" id="fonacot" class="form-control">
+              <input type="checkbox" id="chk_fonacot"  disabled> Documento cargado
+              <a id="link_fonacot" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
+            </div>
           </div>
-
-          <div class="form-group">
-            <label>CURP</label>
-            <input type="file" name="dc" id="dc" class="form-control">
-            <input type="checkbox" id="chk_dc" class="check-doc" disabled> Documento cargado
-            <a id="link_dc" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
-          </div>
-
-          <div class="form-group">
-            <label>Carta INFONAVIT/FONACOT</label>
-            <input type="file" name="ci" id="ci" class="form-control">
-            <input type="checkbox" id="chk_ci" class="check-doc" disabled> Documento cargado
-            <a id="link_ci" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
-          </div>
-
-          <div class="form-group">
-            <label>Foto del Trabajador</label>
-            <input type="file" name="ft" id="ft" accept=".pdf,.jpg,.jpeg,.png" class="form-control">
-            <input type="checkbox" id="chk_ft" class="check-doc" disabled> Documento cargado
-            <a id="link_ft" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>
-          </div>
-
         </form>
       </div>
 

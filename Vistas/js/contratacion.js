@@ -241,15 +241,17 @@ function cargarModalArchivos(id) {
 
        
 
-        if (respuesta[campoBD] && respuesta[campoBD] !== "") {
-          chk.checked = true;
-          link.href = respuesta[campoBD];
-          link.style.display = "inline";
-        } else {
-          chk.checked = false;
-          link.href = "#";
-          link.style.display = "none";
-        }
+        if (chk && link) {
+            if (respuesta[campoBD] && respuesta[campoBD] !== "") {
+                    chk.checked = true;
+                    link.href = respuesta[campoBD];
+                    link.style.display = "inline";
+                } else {
+                    chk.checked = false;
+                    link.href = "#";
+                    link.style.display = "none";
+                }
+            }
       }
 
       const documentosObligatorios = ["ac", "cp", "sf", "in", "cb", "dn", "dc", "ft"]; // ✅ Excluye ci y fonacot

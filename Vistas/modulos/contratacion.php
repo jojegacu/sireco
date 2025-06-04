@@ -184,7 +184,7 @@ if (!tieneAcceso("contratacion")) {
   <!-- Fila 3 -->
   <div class="row">
     <div class="form-group col-md-12">
-      <label>Contacto de Emergencia</label>
+      <label>Nombre del contacto de emergencia</label>
       <input type="text" class="form-control" name="contEmergencia" required>
     </div>
   </div>
