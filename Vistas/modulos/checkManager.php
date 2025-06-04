@@ -20,11 +20,12 @@ if (!tieneAcceso("checkManager")) {
                         <tr>
                             <th>ASP.</th>
                             <th>NOMBRE</th>
-                            <th>A. PATERNO</th>
-                            <th>A. MATERNO</th>
-                            <th>COD POSTAL</th>
+                            <th>AP. PAT</th>
+                            <th>AP. MAT</th>
+                            <th>CP</th>
                             <th>ESTADO</th>
                             <th>TELEFONO</th>
+                            <th>MAIL</th>
                             <th>CLASIFICAR</th>
                         </tr>
                     </thead>
@@ -43,6 +44,7 @@ if (!tieneAcceso("checkManager")) {
                                     <td>'.$value["codPostal"].'</td>
                                     <td>'.$value["estado"].'</td>
                                     <td>'.$value["telefonoCel"].'</td>
+                                    <td>'.$value["correo"].'</td>
                                     <td>
                                         <div class="btn-group clasificar-btns">
                                             <!-- Ver CV -->
@@ -169,6 +171,10 @@ if (!tieneAcceso("checkManager")) {
             <div class="form-group col-md-4">
               <label>Teléfono Celular</label>
               <input type="text" class="form-control" name="telefonoCel" id="telefonoCelGenerales">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Correo Electronico</label>
+              <input type="text" class="form-control" name="correo" id="correoGenerales">
             </div>
             <div class="form-group col-md-4">
               <label>Fecha de Captura</label>

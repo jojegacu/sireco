@@ -18,14 +18,16 @@ if (!tieneAcceso("standby")) {
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>NO ASPIRANTE</th>
+              <th>NO</th>
               <th>NOMBRE</th>
-              <th>AP. PATERNO</th>
-              <th>AP. MATERNO</th>
+              <th>AP. PAT</th>
+              <th>AP. MAT</th>
               <th>CP</th>
               <th>ESTADO</th>
-              <th>MUN./CIUDAD</th>
-              <th>COL/BARRIO</th>
+              <th>MUN</th>
+              <th>COL</th>
+              <th>PROCESO</th>
+              <th>ESTATUS</th>
               <th>CONSULTA</th> <!-- 🔥 NUEVO -->
             </tr>
           </thead>
@@ -45,14 +47,18 @@ if (!tieneAcceso("standby")) {
                     <td>'.$value["estado"].'</td>
                     <td>'.$value["ciudadMun"].'</td>
                     <td>'.$value["colBarrio"].'</td>
+                    <td>'.$value["concepto"].'</td>
+                    <td>'.$value["estatus"].'</td>
                     <td>
                       <div class="btn-group">
                         <!-- Botón Consultar Información -->
                         <button class="btn btn-info btnConsultaCandidato" data-id="'.$value["idAspirante"].'" title="Consultar Información">
                           <i class="fa fa-search"></i>
                         </button>
-
-
+                        <!-- Comentarios -->
+                          <button class="btn btn-secondary btnAutorizar" data-id="'.$value["idAspirante"].'" title="Comentarios">
+                              <i class="fa fa-bullhorn"></i>
+                          </button>
                         <!-- Botón Reincorporar Candidato -->
                         <button class="btn btn-success btnReincorporarCandidato" data-id="'.$value["idAspirante"].'" title="Reincorporar Candidato">
                           <i class="fa fa-undo"></i>
@@ -297,6 +303,42 @@ if (!tieneAcceso("standby")) {
         <button id="btnConfirmarEliminar" class="btn btn-danger">Sí, eliminar</button>
         <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Observaciones -->
+<div class="modal fade" id="modalAutorizar" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary text-white">
+        <h4 class="modal-title">Autorizar Candidato</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <h5 id="infoCandidato" class="text-center font-weight-bold"></h5>
+        <div class="form-group">
+          <label for="comentarioNuevo">Agregar observación:</label>
+          <textarea id="comentarioNuevo" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div id="historialComentarios" class="mt-4">
+          <h6>Historial de observaciones:</h6>
+          <ul class="list-group" id="listaComentarios"></ul>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+          <button class="btn btn-success" id="btnAgregarComentario">
+            <i class="fa fa-commenting-o"></i> Agregar Comentario
+          </button>
+         
+          <button class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times"></i> Cancelar
+          </button>
+        </div>
+
     </div>
   </div>
 </div>

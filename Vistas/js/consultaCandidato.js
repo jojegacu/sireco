@@ -264,3 +264,88 @@ function actualizarNotificado(idAspirante) {
     }
   });
 }
+
+$(document).ready(function () {
+  $("#modalValidarCurp").modal("show");
+
+  $("#btnValidarCurp").click(function () {
+    const curp = $("#inputCurp").val().trim().toUpperCase();
+
+    if (curp.length !== 18) {
+      alert("⚠️ La CURP debe tener exactamente 18 caracteres.");
+      return;
+    }
+
+    $.ajax({
+      url: baseUrl + "Ajax/consultaCandidatoA.php",
+      method: "POST",
+      dataType: "json",
+      data: {
+        validarCurpDuplicada: true,
+        curp: curp
+      },
+      success: function (resp) {
+        if (resp.duplicado) {
+          alert("⚠️ Tu CURP ya está registrada. Comunícate con el personal de Grupo ASE.");
+          window.location.href = "ingresar";
+        } else {
+          $("#modalValidarCurp").modal("hide");
+        }
+      },
+      error: function () {
+        alert("❌ Error al validar CURP.");
+      }
+    });
+  });
+});
+
+$(document).on("input", 'input[name="curpAsp"]', function () {
+  const curp = $(this).val().trim().toUpperCase();
+
+  if (curp.length === 18) {
+    $.ajax({
+      url: baseUrl + "Ajax/consultaCandidatoA.php",
+      method: "POST",
+      data: {
+        accion: "verificarCURP",
+        curp: curp
+      },
+      dataType: "json",
+      success: function (respuesta) {
+        if (respuesta.existe) {
+          Swal.fire({
+            icon: "warning",
+            title: "CURP ya registrada",
+            text: "Esta CURP ya está registrada en el sistema. Comunícate con el personal de Grupo ASE.",
+            confirmButtonText: "Aceptar"
+          }).then(() => {
+            const idAspirante = $("#idAspirante").val();
+
+            $.ajax({
+              url: baseUrl + "Ajax/consultaCandidatoA.php",
+              method: "POST",
+              data: {
+                accion: "actualizarAspirantePorCURP",
+                curp: curp,
+                idAspirante: idAspirante
+              },
+              dataType: "json",
+              success: function (respuesta) {
+                $("#modalContratacion").modal("hide");
+
+                if (respuesta.sesion) {
+                  window.location.href = "contratacion"; // Sesión activa
+                } else {
+                  window.location.href = "contratos"; // Pública
+                }
+              }
+            });
+
+            // Limpiar el campo CURP para evitar doble envío
+            $('input[name="curpAsp"]').val("");
+          });
+        }
+      }
+    });
+  }
+});

@@ -86,6 +86,7 @@ if (isset($_POST["actualizarGenerales"])) {
         "colBarrio"     => $_POST["colBarrio"],
         "calleNo"       => $_POST["calleNo"],
         "telefonoCel"   => $_POST["telefonoCel"],
+        "correo"        => $_POST["correo"],
         "fechaCaptura"  => $_POST["fechaCaptura"],
         "puesto"        => $_POST["puesto"],
         "nuevo"         => $_POST["nuevo"]
@@ -198,7 +199,7 @@ if (isset($_POST["obtenerDatosReasignar"])) {
     exit;
 }
 
-// 🔹 Buscar vacantes disponibles (por clave o cp)
+// 🔹 Buscar vacantes disponibles (por clave o cp) 
 if (isset($_POST["buscarVacantesDisponibles"])) {
     $filtro = $_POST["filtro"];
     $vacantes = aspiranteControlador::filtrarVacantesControlador($filtro);
@@ -215,24 +216,12 @@ if (isset($_POST["actualizarVacanteCandidato"])) {
     exit;
 }
 
-if (isset($_POST["obtenerProcedencias"])) {
-    $stmt = Conexion::conexionBD()->prepare("SELECT idCatalogo, valor FROM catalogos WHERE concepto = 'procedencia'");
-    $stmt->execute();
-    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-    exit;
+if (isset($_POST["cargarProcedencias"])) {
+  require_once "../Controladores/aspiranteControlador.php";
+  $respuesta = aspiranteControlador::ctrCargarProcedencias();
+  echo json_encode($respuesta);
+  exit;
 }
-
-if (isset($_POST["actualizarProcedencia"])) {
-    require_once "../Controladores/aspiranteControlador.php";
-    $id = $_POST["idAspirante"];
-    $idProcedencia = $_POST["idProcedencia"];
-    $anotacion = $_POST["anotacion"];
-
-    $respuesta = aspiranteControlador::actualizarProcedenciaControlador($id, $idProcedencia, $anotacion);
-    echo json_encode($respuesta);
-    exit;
-}
-
 
 
 

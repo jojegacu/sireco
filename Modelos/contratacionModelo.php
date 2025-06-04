@@ -150,7 +150,7 @@ static public function mdlActualizarDocumentos($idAspirante, $datos) {
 
 static public function mdlObtenerDocumentos($idAspirante) {
     $stmt = conexion::conexionBD()->prepare("
-        SELECT actaNac, compDom, sitFiscal, ine, cuentaBanco, docNss, docCurp, cartaInfonavit, foto 
+        SELECT actaNac, compDom, sitFiscal, ine, cuentaBanco, docNss, docCurp, cartaInfonavit, foto, fonacot 
         FROM contratacion 
         WHERE idAspiranteFk = :id
     ");

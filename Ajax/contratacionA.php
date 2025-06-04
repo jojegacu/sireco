@@ -75,7 +75,8 @@ if (isset($_POST["subirDocumentos"])) {
         "dn" => "docNss",
         "dc" => "docCurp",
         "ci" => "cartaInfonavit",
-        "ft" => "foto"
+        "ft" => "foto",
+        "fonacot" => "fonacot" // ✅ Nuevo campo
     ];
 
     $nuevosDatos = [];
@@ -99,7 +100,7 @@ if (isset($_POST["subirDocumentos"])) {
         echo json_encode("No se subió ningún archivo.");
     }
     exit();
-}
+} 
 
 if (isset($_POST["eliminarAspirante"])) {
     $respuesta = contratacionControlador::ctrEliminarAspirante($_POST["idAspirante"]);

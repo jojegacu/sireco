@@ -73,6 +73,9 @@ class aspiranteControlador{
 	            "colBarrio"      => $_POST["colBarrio"],
 	            "calleNo"        => $_POST["calleNo"],
 	            "telefonoCel"    => $_POST["telefonoCel"],
+	            "correo"    	 => $_POST["correo"],
+	            "anotacion"    	 => $_POST["anotacion"],
+	            "idProcedenciaFk"=> $_POST["idProcedenciaFk"],
 	            "cv"             => $cvFinal, // guarda el nuevo nombre
 	            "fechaCap"       => $_POST["fechaCap"],
 	            "puesto"          => $_POST["puesto"],
@@ -82,16 +85,10 @@ class aspiranteControlador{
 	        $resultado = aspiranteModelo::altaAspiranteModelo($tablaBD, $datosC);
 
 	        if ($resultado == true) {
-			    // Obtener el último ID insertado
-			    $ultimoID = Conexion::conexionBD()->lastInsertId();
-
-			    echo '
-			    <script>
-			      sessionStorage.setItem("idAspiranteRegistrado", '.$ultimoID.');
-			      setTimeout(() => {
-			        $("#modalProcedencia").modal("show");
-			      }, 500);
-			    </script>';
+			    echo '<script>
+	                alert("El registro fue exitoso, comunícate con Soporte para validar el registro");
+	                window.location = "ingresar";
+	            </script>';
 			}
 	    }
 	}
@@ -210,6 +207,7 @@ public function actualizarAspiranteControlador($datosPost, $archivoCV, $idAspira
         "colBarrio"       => $datos["colBarrio"],
         "calleNo"         => $datos["calleNo"],
         "telefonoCel"     => $datos["telefonoCel"],
+        "correo"          => $datos["correo"],
         "fechaCaptura"    => $datos["fechaCaptura"],
         "puesto"    => $datos["puesto"],
         "nuevo"    => $datos["nuevo"]
@@ -243,7 +241,7 @@ public function actualizarAspiranteControlador($datosPost, $archivoCV, $idAspira
 	public static function obtenerVacanteControlador($idVacante) {
     return aspiranteModelo::mdlObtenerVacante($idVacante);
 	}
-
+ 
 	public static function filtrarVacantesControlador($filtro) {
 	    return aspiranteModelo::mdlFiltrarVacantes($filtro);
 	}
@@ -252,15 +250,13 @@ public function actualizarAspiranteControlador($datosPost, $archivoCV, $idAspira
 	    return aspiranteModelo::mdlActualizarVacante($idAspirante, $idVacante);
 	}
 
-
-public static function actualizarProcedenciaControlador($idAspirante, $idProcedencia, $anotacion) {
-    return aspiranteModelo::actualizarProcedencia($idAspirante, $idProcedencia, $anotacion);
-}
-
 public static function actualizarNotificado($id) {
     return aspiranteModelo::actualizarNotificadoModelo($id, "aspirante");
 }
 
+public static function ctrCargarProcedencias() {
+  return aspiranteModelo::mdlCargarProcedencias();
+}
 
 
 }

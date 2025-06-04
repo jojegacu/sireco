@@ -98,40 +98,68 @@
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <h2>TELEFONO</h2>             
-                      <input class="form-control input-lg" type="text" name="telefonoCel" id="telefonoCel" minlength="10" maxlength="10" oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);" required>
+                       <h2>CARGAR CV </h2>
+                        <input type="file" name="cvFile" id="cvFile" accept="application/pdf" required>
                   </div>
+                  
                   <!-- /input-group -->
                 </div>
                 <!-- /.col-lg-6 -->                
               </div>
               <div class="row">
+                <!-- Procedencia -->
                 <div class="col-lg-6">
                   <div class="form-group">
-                       <h2>CARGAR CV </h2>
-                        <input type="file" name="cvFile" id="cvFile" accept="application/pdf" required>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <h2>SELECCIONA EL PUESTO</h2>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="buscarClaveVacante" placeholder="Teclea la clave..." autocomplete="off">
-                      <span class="input-group-btn">
-                        <button class="btn btn-danger" type="button" id="btnBuscarPuesto" data-toggle="modal" data-target="#modalVacantes">
-                          <i class="fa fa-search"></i>
-                        </button>
-
-                      </span>
-                    </div>
-                    <input type="hidden" id="puestoGenerales" name="puesto">
+                    <h2>PROCEDENCIA</h2>
+                    <select class="form-control input-lg" name="idProcedenciaFk" id="idProcedenciaFk" required>
+                      <option value="">Seleccione una opción</option>
+                    </select>
                   </div>
                 </div>
 
-                <!-- /.col-lg-6 -->                
+                <!-- Anotación -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <h2>NOMBRE DE MEDIO, RED SOCIAL O PERSONA</h2>
+                    <input type="text" id="inputAnotacion" name="anotacion" class="form-control input-lg" onkeyup="this.value = this.value.toUpperCase();" required>
+                  </div>
+                </div>
               </div>
+              <div class="row">
+                  <!-- Teléfono -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <h2>TELEFONO</h2>             
+                      <input class="form-control input-lg" type="text" name="telefonoCel" id="telefonoCel" minlength="10" maxlength="10" 
+                             oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);" required>
+                    </div>
+                  </div>
+
+                  <!-- Correo electrónico -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <h2>CORREO ELECTRÓNICO</h2>
+                      <input class="form-control input-lg" type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required>
+                    </div>
+                  </div>
+
+                  <!-- Puesto -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <h2>SELECCIONA EL PUESTO</h2>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="buscarClaveVacante" placeholder="Teclea la clave..." autocomplete="off">
+                        <span class="input-group-btn">
+                          <button class="btn btn-danger" type="button" id="btnBuscarPuesto" data-toggle="modal" data-target="#modalVacantes">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </span>
+                      </div>
+                      <input type="hidden" id="puestoGenerales" name="puesto">
+                    </div>
+                  </div>
+                </div>
+
               <input type="hidden" id="fechaCap" name="fechaCap">
                 <script>
                       window.addEventListener('load', function() {
@@ -188,32 +216,26 @@
             </div>
           </div>
 
-          <!-- Modal para seleccionar procedencia -->
-          <div class="modal fade" id="modalProcedencia" tabindex="-1" role="dialog" aria-labelledby="modalProcedenciaLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <form id="formProcedencia">
-                <div class="modal-content">
-                  <div class="modal-header bg-info">
-                    <h4 class="modal-title" id="modalProcedenciaLabel">Seleccionar Procedencia</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <label>Procedencia:</label>
-                      <select id="selectProcedencia" name="idProcedenciaFk" class="form-control" required></select>
-                    </div>
-                    <div class="form-group">
-                      <label>Nombre de medio, red social o persona:</label>
-                      <input type="text" id="inputAnotacion" name="anotacion" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="guardarProcedenciaBtn">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  </div>
+          
+          <!-- Modal de Validación de CURP -->
+          <div class="modal fade" id="modalValidarCurp" tabindex="-1" role="dialog" aria-labelledby="modalValidarCurpLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+              <div class="modal-content text-center">
+                <div class="modal-header bg-primary text-white">
+                  <h4 class="modal-title w-100">Validar CURP</h4>
                 </div>
-              </form>
+                <div class="modal-body">
+                  <label>Ingresa tu CURP</label>
+                  <input type="text" id="inputCurp" class="form-control text-uppercase" maxlength="18" minlength="18" pattern="[A-Z0-9]{18}" required>
+                  <small class="form-text text-muted">Debe contener exactamente 18 caracteres.</small>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <button id="btnValidarCurp" class="btn btn-success">Validar</button>
+                </div>
+              </div>
             </div>
           </div>
+
 
        
     </section>

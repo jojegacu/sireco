@@ -45,7 +45,7 @@ static public function ctrEliminarAspirante($id) {
 // Nuevo método para actualizar rutas de documentos
 static public function ctrActualizarDocumentos($idAspirante, $datos) {
     return contratacionModelo::mdlActualizarDocumentos($idAspirante, $datos);
-}
+} 
 
 static public function ctrObtenerDocumentos($idAspirante) {
     return contratacionModelo::mdlObtenerDocumentos($idAspirante);
