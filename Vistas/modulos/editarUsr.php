@@ -11,9 +11,9 @@ if (!tieneAcceso("editarUsr")) {
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <!-- Main content -->
-    <section class="content" >
-      <div class="row">
-        <div class="col-xs-9" style="width: 100% !important;">
+    <section class="content" style="padding-left: 0 !important; padding-right: 0 !important;">
+      <div class="row" style="margin-left: 0 !important; margin-right: 0 !important; width: 100% !important;">
+        <div class="col-xs-12" style="width: 100% !important; padding-left: 0 !important; padding-right: 0 !important;">
 
           <div class="box" >
             <div class="box-header" align="center">
