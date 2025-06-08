@@ -122,8 +122,8 @@ $(document).on("submit", "#formContratacion", function (e) {
   const numEmergencia = $('input[name="numEmergencia"]').val(); // O el tipo de input que uses para puesto
 
    // Validar NSS: exactamente 10 dígitos
-  if (!/^\d{10}$/.test(nss)) {
-    alert("⚠️ El NSS debe contener exactamente 10 dígitos numéricos.");
+  if (!/^\d{11}$/.test(nss)) {
+    alert("⚠️ El NSS debe contener exactamente 11 dígitos numéricos.");
     $('input[name="nss"]').focus();
     return;
   }
@@ -214,13 +214,11 @@ function cargarModalArchivos(id) {
     data: { consultarDocumentos: true, idAspirante: id },
     dataType: "json",
     success: function (respuesta) {
-      
 
       if (!respuesta) {
-  alert("⚠️ No se pueden cargar documentos si no se realiza el registro de contratación.");
-  return;
-}
-
+        alert("⚠️ No se pueden cargar documentos si no se realiza el registro de contratación.");
+        return;
+      }
 
       const mapeo = {
         "ac": "actaNac",
@@ -231,7 +229,8 @@ function cargarModalArchivos(id) {
         "dn": "docNss",
         "dc": "docCurp",
         "ci": "cartaInfonavit",
-        "ft": "foto"
+        "ft": "foto",
+        "fonacot": "fonacot" // ✅ Añadido al mapeo general
       };
 
       for (const input in mapeo) {
@@ -240,72 +239,74 @@ function cargarModalArchivos(id) {
         const chk = document.getElementById("chk_" + input);
         const link = document.getElementById("link_" + input);
 
+       
+
+        if (chk && link) {
+            if (respuesta[campoBD] && respuesta[campoBD] !== "") {
+                    chk.checked = true;
+                    link.href = respuesta[campoBD];
+                    link.style.display = "inline";
+                } else {
+                    chk.checked = false;
+                    link.href = "#";
+                    link.style.display = "none";
+                }
+            }
+      }
+
+      const documentosObligatorios = ["ac", "cp", "sf", "in", "cb", "dn", "dc", "ft"]; // ✅ Excluye ci y fonacot
+
+      // Verificación de documentos cargados
+      let totalCargados = 0;
+      for (const input of documentosObligatorios) {
+        const campoBD = mapeo[input];
         if (respuesta[campoBD] && respuesta[campoBD] !== "") {
-          chk.checked = true;
-          link.href = respuesta[campoBD];
-          link.style.display = "inline";
-        } else {
-          chk.checked = false;
-          link.href = "#";
-          link.style.display = "none";
+          totalCargados++;
         }
       }
 
-      // 🔍 Verificación para ocultar botones si ya está todo completo y estás en /contratos
-        const totalEsperados = Object.keys(mapeo).length;
-        let totalCargados = 0;
+      if (totalCargados === documentosObligatorios.length && window.location.pathname.includes("/contratos")) {
+        // 1. Ocultar botones de acción
+        document.getElementById("botonesAccion").style.display = "none";
 
-        for (const input in mapeo) {
-          const campoBD = mapeo[input];
-          if (respuesta[campoBD] && respuesta[campoBD] !== "") {
-            totalCargados++;
-          }
+        // 2. Mostrar aviso
+        const aviso = document.createElement("div");
+        aviso.className = "alert alert-success";
+        aviso.style.marginTop = "30px";
+        aviso.style.textAlign = "center";
+        aviso.innerHTML = `
+            ✅ Tu información ya está completa. Comunícate con el área correspondiente para continuar con el proceso.<br><br>
+            <a href="ingresar" class="btn btn-danger btn-lg">
+              Cerrar
+            </a>
+          `;
+
+        const contenedor = document.querySelector(".box-body");
+        if (!document.getElementById("mensajeCompleto")) {
+          aviso.id = "mensajeCompleto";
+          contenedor.appendChild(aviso);
         }
 
-        if (totalCargados === totalEsperados && window.location.pathname.includes("/contratos")) {
-          // 1. Ocultar botones de acción
-          document.getElementById("botonesAccion").style.display = "none";
-
-          // 2. Mostrar aviso
-          const aviso = document.createElement("div");
-          aviso.className = "alert alert-success";
-          aviso.style.marginTop = "30px";
-          aviso.style.textAlign = "center";
-          aviso.innerHTML = aviso.innerHTML = `
-              ✅ Tu información ya está completa. Comunícate con el área correspondiente para continuar con el proceso.<br><br>
-              <a href="ingresar" class="btn btn-danger btn-lg">
-                Cerrar
-              </a>
-            `;
-
-
-          const contenedor = document.querySelector(".box-body");
-          if (!document.getElementById("mensajeCompleto")) {
-            aviso.id = "mensajeCompleto";
-            contenedor.appendChild(aviso);
-          }
-
-          // 3. Ocultar botón Finalizar Contrato en el modal
+        // 3. Ocultar botón Finalizar Contrato en el modal
         setTimeout(() => {
           document.getElementById("btnFinalizarContrato").style.display = "none";
         }, 100);
 
-        } else {
-          // Asegurarse que el botón esté visible si NO estamos en contratos
-          document.getElementById("btnFinalizarContrato").style.display = "inline-block";
-        }
-
+      } else {
+        // Asegurarse que el botón esté visible si NO estamos en contratos
+        document.getElementById("btnFinalizarContrato").style.display = "inline-block";
+      }
 
       $('#modalArchivos').modal('hide'); // por si estaba mal cerrado
       $("#modalArchivos").modal('show');
       validarCheckDocumentos(); // 🔁 Forzar validación al mostrar modal
     },
     error: function (xhr, status, error) {
-      
       alert("Error al cargar los documentos.");
     }
   });
 }
+
 
 
 function guardarArchivos() {
@@ -334,7 +335,7 @@ function guardarArchivos() {
       Swal.fire("❌ Error en la carga", `<pre>${xhr.responseText}</pre>`, "error");
     }
   });
-}
+} 
 
 $(document).on("click", ".btnDescargarDocs", function () {
   const idAspirante = $(this).data("id");

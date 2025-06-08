@@ -167,6 +167,7 @@ $(document).on("click", ".btnGenerales", function () {
       $("#coloniaGenerales").val(respuesta.colBarrio);
       $("#calleNoGenerales").val(respuesta.calleNo);
       $("#telefonoCelGenerales").val(respuesta.telefonoCel);
+      $("#correoGenerales").val(respuesta.correo);
       $("#fechaCapturaGenerales").val(respuesta.fechaCaptura);
 
       // ✅ Nuevos campos ocultos
@@ -297,6 +298,7 @@ $("#formGenerales").on("submit", function (e) {
     colBarrio: $("#coloniaGenerales").val(),
     calleNo: $("#calleNoGenerales").val(),
     telefonoCel: $("#telefonoCelGenerales").val(),
+    correo: $("#correoGenerales").val(),
     fechaCaptura: $("#fechaCapturaGenerales").val(),
 
     // ✅ Nuevos campos ocultos
@@ -791,71 +793,6 @@ $("#btnActualizarVacante").on("click", function () {
   });
 });
 
-$(document).ready(function () {
-  const id = sessionStorage.getItem("idAspiranteRegistrado");
-
-  if (id && /^\d+$/.test(id)) {
-    // Solo abrir si existe un ID numérico válido
-    $.ajax({
-      url: baseUrl + "Ajax/aspirantesA.php",
-      method: "POST",
-      data: { obtenerProcedencias: true },
-      dataType: "json",
-      success: function (data) {
-        const combo = $("#selectProcedencia");
-        combo.empty().append('<option value="">Seleccione</option>');
-        data.forEach(item => {
-          combo.append(`<option value="${item.idCatalogo}">${item.valor}</option>`);
-        });
-
-        $("#modalProcedencia").modal("show");
-      }
-    });
-  } else {
-    sessionStorage.removeItem("idAspiranteRegistrado");
-  }
-});
-
-
-$("#formProcedencia").on("submit", function (e) {
-  e.preventDefault();
-  const idProcedencia = $("#selectProcedencia").val();
-  const anotacion = $("#inputAnotacion").val().trim();
-  const idAspirante = sessionStorage.getItem("idAspiranteRegistrado");
-
-  if (!idProcedencia || !anotacion) {
-    return alert("⚠️ Selecciona procedencia y escribe una anotación.");
-  }
-
-  $.ajax({
-    url: baseUrl + "Ajax/aspirantesA.php",
-    method: "POST",
-    data: {
-      actualizarProcedencia: true,
-      idAspirante: idAspirante,
-      idProcedencia: idProcedencia,
-      anotacion: anotacion
-    },
-    success: function (resp) {
-      sessionStorage.removeItem("idAspiranteRegistrado");
-      $("#modalProcedencia").modal("hide");
-
-      Swal.fire({
-        icon: "success",
-        title: "✅ Registro completo",
-        text: "La procedencia fue registrada correctamente.",
-        confirmButtonText: "Aceptar"
-      }).then(() => {
-        window.location = "ingresar";
-      });
-    },
-    error: function () {
-      Swal.fire("❌ Error", "No se pudo actualizar la procedencia.", "error");
-    }
-  });
-});
-
-
 function actualizarNotificado(idAspirante) {
   $.ajax({
     url: baseUrl + "Ajax/aspirantesA.php",
@@ -872,3 +809,30 @@ function actualizarNotificado(idAspirante) {
     }
   });
 }
+
+function cargarProcedencias() {
+  $.ajax({
+    url: "Ajax/aspirantesA.php",
+    method: "POST",
+    data: { cargarProcedencias: true },
+    dataType: "json",
+    success: function (respuesta) {
+      const $combo = $("#idProcedenciaFk");
+      $combo.empty().append('<option value="">Seleccione una opción</option>');
+
+      const yaAgregados = new Set();
+
+      respuesta.forEach(function (item) {
+        if (!yaAgregados.has(item.idCatalogo)) {
+          $combo.append(`<option value="${item.idCatalogo}">${item.valor}</option>`);
+          yaAgregados.add(item.idCatalogo);
+        }
+      });
+    }
+  });
+}
+
+// Cargar al iniciar
+$(document).ready(function () {
+  cargarProcedencias();
+});

@@ -21,11 +21,12 @@ if (!tieneAcceso("nuevos")) {
                         <tr>
                             <th>ASP.</th>
                             <th>NOMBRE</th>
-                            <th>A. PATERNO</th>
-                            <th>A. MATERNO</th>
-                            <th>COD POSTAL</th>
+                            <th>AP. PAT</th>
+                            <th>AP. MAT</th>
+                            <th>CP</th>                            
                             <th>ESTADO</th>
-                            <th>TELEFONO</th>                                   
+                            <th>TELEFONO</th> 
+                            <th>MAIL</th>                                  
                             <th>CLASIFICAR</th>
                         </tr>
                     </thead>
@@ -43,7 +44,8 @@ if (!tieneAcceso("nuevos")) {
                                     <td>'.$value["apMaterno"].'</td>
                                     <td>'.$value["codPostal"].'</td>
                                     <td>'.$value["estado"].'</td>
-                                    <td>'.$value["telefonoCel"].'</td>              
+                                    <td>'.$value["telefonoCel"].'</td>
+                                    <td>'.$value["correo"].'</td>              
                                     <td>
                                         <div class="btn-group clasificar-btns">
                                             <!-- Ver CV -->
@@ -183,6 +185,10 @@ if (!tieneAcceso("nuevos")) {
               <input type="text" class="form-control" name="telefonoCel" id="telefonoCelGenerales" required maxlength="10" pattern="^\d{10}$" inputmode="numeric" title="Debe contener exactamente 10 dígitos numéricos">
             </div>
             <div class="form-group col-md-4">
+              <label>Correo Electronico</label>
+              <input type="text" class="form-control" name="correo" id="correoGenerales" readonly>
+            </div>
+            <div class="form-group col-md-4">
               <label>Fecha de Captura</label>
               <input type="date" class="form-control" name="fechaCaptura" id="fechaCapturaGenerales" readonly>
             </div>
@@ -311,7 +317,7 @@ if (!tieneAcceso("nuevos")) {
       
     </div>
   </div>
-</div>
+</div> 
 
 <!-- ======================= MODAL REASIGNAR VACANTE ======================= -->
 <div class="modal fade" id="modalReasignarVacante" tabindex="-1" role="dialog">

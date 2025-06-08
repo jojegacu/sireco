@@ -23,7 +23,7 @@ if (!tieneAcceso("masiva")) {
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarCategoria">
 					  ELIMINAR CATEGORÍA
-					</button>
+					</button> 
 
 				
 			</div>		

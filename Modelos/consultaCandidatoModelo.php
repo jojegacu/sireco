@@ -140,5 +140,26 @@ public static function actualizarNotificadoModelo($id) {
     }
 }
 
+public static function verificarCurpDuplicadaModelo($curp) {
+  $stmt = conexion::conexionBD()->prepare("SELECT COUNT(*) FROM contratacion WHERE curpAsp = :curp");
+  $stmt->bindParam(":curp", $curp, PDO::PARAM_STR);
+  $stmt->execute();
+  return $stmt->fetchColumn() > 0;
+}
+
+public static function verificarCurpModelo($tabla, $curp) {
+    $stmt = conexion::conexionBD()->prepare("SELECT COUNT(*) FROM $tabla WHERE curpAsp = :curp");
+    $stmt->bindParam(":curp", $curp, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchColumn() > 0;
+}
+
+
+public static function actualizarAspiranteCurpModelo($tabla, $curp, $idAspirante) {
+    $stmt = conexion::conexionBD()->prepare("UPDATE $tabla SET nuevo = 3, idEstatusFk = 7 WHERE idAspirante = :idAspirante");
+    $stmt->bindParam(":idAspirante", $idAspirante, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
 
 }

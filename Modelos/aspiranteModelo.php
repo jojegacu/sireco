@@ -3,7 +3,7 @@
 require_once "conexion.php";
 
 class aspiranteModelo extends conexion{
-
+ 
 	public static function buscarCPModelo($codigoPostal) {
         try {
             $stmt = Conexion::conexionBD()->prepare("SELECT codigoPos, estado, ciudadMun, colBarrio FROM estado WHERE codigoPos = :codigoPos");
@@ -20,18 +20,21 @@ class aspiranteModelo extends conexion{
 
 	static public function altaAspiranteModelo($tablaBD, $datosC){
 
-		$pdo = conexion::conexionBD()->prepare("INSERT INTO $tablaBD (nombre, apPaterno, apMaterno, fechaNacimiento, codPostal, estado, ciudadMun, colBarrio, calleNo, telefonoCel, cv, fechaCaptura, puesto, nuevo) VALUES (:nombre, :apPaterno, :apMaterno, :fechaNacimiento, :codPostal, :estado, :ciudadMun, :colBarrio, :calleNo, :telefonoCel, :cv, :fechaCaptura, :puesto, :nuevo)");
+		$pdo = conexion::conexionBD()->prepare("INSERT INTO $tablaBD (nombre, apPaterno, apMaterno, fechaNacimiento, codPostal, estado, ciudadMun, colBarrio, calleNo, telefonoCel, correo, idProcedenciaFk, anotacion, cv, fechaCaptura, puesto, nuevo) VALUES (:nombre, :apPaterno, :apMaterno, :fechaNacimiento, :codPostal, :estado, :ciudadMun, :colBarrio, :calleNo, :telefonoCel, :correo, :idProcedenciaFk, :anotacion, :cv, :fechaCaptura, :puesto, :nuevo)");
 
 		$pdo -> bindParam(":nombre", $datosC["nombre"], PDO::PARAM_STR);
 		$pdo -> bindParam(":apPaterno", $datosC["apPaterno"], PDO::PARAM_STR);
 		$pdo -> bindParam(":apMaterno", $datosC["apMaterno"], PDO::PARAM_STR);
-		$pdo -> bindParam(":fechaNacimiento", $datosC["fechaNacimiento"], PDO::PARAM_STR);		
+		$pdo -> bindParam(":fechaNacimiento", $datosC["fechaNacimiento"], PDO::PARAM_STR);	
 		$pdo -> bindParam(":codPostal", $datosC["codPostal"], PDO::PARAM_INT);
 		$pdo -> bindParam(":estado", $datosC["estado"], PDO::PARAM_STR);
 		$pdo -> bindParam(":ciudadMun", $datosC["ciudadMun"], PDO::PARAM_STR);
 		$pdo -> bindParam(":colBarrio", $datosC["colBarrio"], PDO::PARAM_STR);
 		$pdo -> bindParam(":calleNo", $datosC["calleNo"], PDO::PARAM_STR);
 		$pdo -> bindParam(":telefonoCel", $datosC["telefonoCel"], PDO::PARAM_STR);
+        $pdo -> bindParam(":correo", $datosC["correo"], PDO::PARAM_STR);
+        $pdo -> bindParam(":idProcedenciaFk", $datosC["idProcedenciaFk"], PDO::PARAM_INT);
+        $pdo -> bindParam(":anotacion", $datosC["anotacion"], PDO::PARAM_STR);
 		$pdo -> bindParam(":cv", $datosC["cv"], PDO::PARAM_STR);
 		$pdo -> bindParam(":fechaCaptura", $datosC["fechaCap"], PDO::PARAM_STR);
 		$pdo -> bindParam(":puesto", $datosC["puesto"], PDO::PARAM_INT);
@@ -49,20 +52,23 @@ class aspiranteModelo extends conexion{
 	//VER CANDIDATOS
 
 	static public function verAspiranteModelo($tablaBD, $columna, $valor){
-
-		if ($columna != null) {
-			$pdo = conexion::conexionBD()->prepare("SELECT * FROM $tablaBD WHERE $columna = :$columna");
-			$pdo -> bindParam(":".$columna, $valor, PDO::PARAM_STR);
-			$pdo -> execute();
-			return $pdo -> fetch(PDO::FETCH_ASSOC);
-		}else{
-			$pdo = conexion::conexionBD()->prepare("SELECT * FROM $tablaBD");
-			$pdo -> execute();
-			return $pdo ->fetchAll(PDO::FETCH_ASSOC);;
-		}
-		$pdo -> close();
-		$pdo = null;
-	}
+    if ($columna != null) {
+        $pdo = conexion::conexionBD()->prepare("SELECT * FROM $tablaBD WHERE $columna = :$columna");
+        $pdo->bindParam(":".$columna, $valor, PDO::PARAM_STR);
+        $pdo->execute();
+        return $pdo->fetch(PDO::FETCH_ASSOC);
+    } else {
+        $pdo = conexion::conexionBD()->prepare("
+            SELECT a.*, e.concepto, e.estatus
+            FROM $tablaBD a
+            LEFT JOIN estatus e ON a.idEstatusFk = e.idestatus
+            ORDER BY a.fechaCaptura DESC
+        ");
+        $pdo->execute();
+        return $pdo->fetchAll(PDO::FETCH_ASSOC);
+    }
+    $pdo = null;
+}
 
 	public static function obtenerCvModelo($tabla, $id) {
 	    $pdo = conexion::conexionBD()->prepare("SELECT cv FROM $tabla WHERE idAspirante = :id");
@@ -179,6 +185,7 @@ public static function actualizarGeneralesModelo($tabla, $datos) {
         colBarrio = :colBarrio,
         calleNo = :calleNo,
         telefonoCel = :telefonoCel,
+        correo = :correo,
         fechaCaptura = :fechaCaptura,
         puesto = :puesto,
         nuevo = :nuevo
@@ -196,6 +203,7 @@ public static function actualizarGeneralesModelo($tabla, $datos) {
     $stmt->bindParam(":colBarrio", $datos["colBarrio"], PDO::PARAM_STR);
     $stmt->bindParam(":calleNo", $datos["calleNo"], PDO::PARAM_STR);
     $stmt->bindParam(":telefonoCel", $datos["telefonoCel"], PDO::PARAM_STR);
+    $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
     $stmt->bindParam(":fechaCaptura", $datos["fechaCaptura"], PDO::PARAM_STR);
     $stmt->bindParam(":puesto", $datos["puesto"], PDO::PARAM_STR);
 	$stmt->bindParam(":nuevo", $datos["nuevo"], PDO::PARAM_INT);
@@ -320,7 +328,10 @@ public static function mdlFiltrarVacantes($filtro) {
     $stmt = Conexion::conexionBD()->prepare("
         SELECT idVacante, clave, tienda, cp, edo 
         FROM vacantes 
-        WHERE clave LIKE :filtro OR cp LIKE :filtro
+        WHERE clave LIKE :filtro 
+           OR tienda LIKE :filtro 
+           OR cp LIKE :filtro 
+           OR edo LIKE :filtro
         LIMIT 20
     ");
     $like = "%$filtro%";
@@ -329,21 +340,12 @@ public static function mdlFiltrarVacantes($filtro) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 public static function mdlActualizarVacante($idAspirante, $idVacante) {
     $stmt = Conexion::conexionBD()->prepare("UPDATE aspirante SET puesto = :puesto WHERE idAspirante = :id");
     $stmt->bindParam(":puesto", $idVacante, PDO::PARAM_INT);
     $stmt->bindParam(":id", $idAspirante, PDO::PARAM_INT);
     return $stmt->execute();
-}
-
-public static function actualizarProcedencia($idAspirante, $idProcedencia, $anotacion) {
-    $stmt = Conexion::conexionBD()->prepare(
-        "UPDATE aspirante SET idProcedenciaFk = :idProcedencia, anotacion = :anotacion WHERE idAspirante = :id"
-    );
-    $stmt->bindParam(":idProcedencia", $idProcedencia, PDO::PARAM_INT);
-    $stmt->bindParam(":anotacion", $anotacion, PDO::PARAM_STR);
-    $stmt->bindParam(":id", $idAspirante, PDO::PARAM_INT);
-    return $stmt->execute() ? "ok" : "error";
 }
 
 public static function actualizarNotificadoModelo($id, $tabla) {
@@ -357,6 +359,12 @@ public static function actualizarNotificadoModelo($id, $tabla) {
     }
 
     $stmt = null;
+}
+
+public static function mdlCargarProcedencias() {
+  $stmt = Conexion::conexionBD()->prepare("SELECT idCatalogo, valor FROM catalogos WHERE concepto = 'procedencia'");
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 

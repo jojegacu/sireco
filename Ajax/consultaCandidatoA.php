@@ -57,3 +57,34 @@ if (isset($_POST["actualizarNotificado"]) && isset($_POST["idAspirante"])) {
     echo json_encode(["success" => $respuesta === "ok"]);
     exit;
 }
+
+if (isset($_POST["validarCurpDuplicada"])) {
+  $curp = $_POST["curp"];
+  $existe = consultaCandidatoControlador::verificarCurpDuplicada($curp);
+  echo json_encode(["duplicado" => $existe]);
+  return;
+}
+
+if (isset($_POST["accion"])) {
+
+    if ($_POST["accion"] == "verificarCURP") {
+        $respuesta = consultaCandidatoControlador::verificarCurpControlador($_POST["curp"]);
+        echo json_encode(["existe" => $respuesta]);
+        return;
+    }
+
+    if ($_POST["accion"] == "actualizarAspirantePorCURP") {
+    session_start(); // Asegura acceso a la sesión
+
+    $resp = consultaCandidatoControlador::actualizarAspiranteCurpControlador($_POST["curp"], $_POST["idAspirante"]);
+
+    $sesionActiva = isset($_SESSION["idPersona"]) ? true : false;
+
+    echo json_encode([
+        "ok" => $resp,
+        "sesion" => $sesionActiva
+    ]);
+    return;
+}
+
+}
