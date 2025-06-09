@@ -51,7 +51,7 @@ if (!tieneAcceso("masiva")) {
 						  $contador = 1;
 
 						  foreach ($vacantes as $v) {
-						  	if (isset($v["categoria"]) && trim($v["categoria"]) != ""){
+						  	if (isset($v["categoria"]) && trim($v["categoria"]) != "" && $v["estatus"] == 0){
 						    echo '
 						      <tr>
 						        <td>'.$v["idVacante"].'</td>

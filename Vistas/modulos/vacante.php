@@ -46,6 +46,8 @@ if (!tieneAcceso("vacante")) {
 
 						  foreach ($vacantes as $v) {
 						  	if ($v["categoria"] == null || $v["categoria"] == "") {
+						  		if ($v["estatus"] == 0) {		  			
+						  		
 						    echo '
 						      <tr>
 						        <td>'.$v["idVacante"].'</td>
@@ -68,6 +70,7 @@ if (!tieneAcceso("vacante")) {
 						          </div>
 						        </td>
 						      </tr>';
+						      }
 						    }
 						  }
 						  ?>
