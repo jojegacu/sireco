@@ -1,5 +1,8 @@
 <?php
 require_once dirname(__DIR__) . "/Modelos/ReportesModel.php";
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ReportesController
 {
@@ -62,6 +65,7 @@ class ReportesController
     }
     
     public function exportarLayoutAspirante($idAspirante) {
+
         // Validar que tengamos un ID de aspirante válido
         if (empty($idAspirante) || !is_numeric($idAspirante) || $idAspirante <= 0) {
             echo json_encode(['error' => 'ID de aspirante inválido: ' . $idAspirante]);
@@ -197,39 +201,37 @@ class ReportesController
         // Deshabilitar el buffer de salida para evitar problemas
         if (ob_get_level()) ob_end_clean();
 
-        // Configurar encabezados para descarga CSV con UTF-8
-        header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=layout_' . ($datos['nombre'] ?? 'aspirante') . '_' . date('Y-m-d') . '.csv');
-        header('Pragma: no-cache');
-        header('Expires: 0');
-        
-        // Abrir salida directa
-        $output = fopen('php://output', 'w');
-        
-        // Agregar BOM para UTF-8 (para Excel)
-        fputs($output, "\xEF\xBB\xBF");
-        
-        // Modificar los valores numéricos para que no se exporten con = y comillas
-        foreach ($layoutData as $key => $value) {
-            // Si es un valor numérico, quitar formato especial
-            if (is_string($value) && preg_match('/^[0-9]+$/', $value)) {
-                $layoutData[$key] = $value;
-            }
-            
-            // Asegurarse de que está definido
-            if ($layoutData[$key] === null) {
-                $layoutData[$key] = '';
+        // Crear un nuevo Spreadsheet
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Convertir valores numéricos a texto anteponiendo un apostrofe
+        foreach ($layoutData as $k => $v) {
+            if (is_numeric($v) && $v !== '') {
+                $layoutData[$k] = "'" . $v;
             }
         }
-        
         // Escribir encabezados
-        fputcsv($output, $columnas);
-        
+        $sheet->fromArray($columnas, NULL, 'A1');
+
+        // Aplicar color de fondo a la primera fila (encabezados)
+        $colCount = count($columnas);
+        $lastCol = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colCount);
+        $sheet->getStyle("A1:{$lastCol}1")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setRGB('4D93D9');
+
         // Escribir datos
-        fputcsv($output, $layoutData);
-        
-        // Cerrar la salida
-        fclose($output);
+        $sheet->fromArray($layoutData, NULL, 'A2');
+
+        // Configurar encabezados para descarga XLSX
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="layout_' . ($datos['nombre'] ?? 'aspirante') . '_' . date('Y-m-d') . '.xlsx"');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+
+        // Crear el writer y guardar a la salida
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save('php://output');
         exit;
     }
 }
