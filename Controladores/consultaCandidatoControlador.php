@@ -23,13 +23,24 @@ class consultaCandidatoControlador {
 
 
 public static function ctrFinalizarContrato($idAspirante) {
-    $tabla = "aspirante";
-    $campo = "nuevo";
-    $valor = 4;
+    $valorNuevo = 4;
 
-    $respuesta = consultaCandidatoModelo::mdlActualizarCampo($tabla, $campo, $valor, "idAspirante", $idAspirante);
-    return $respuesta ? "ok" : "error";
+    // 1. Actualizar aspirante.nuevo = 4
+    $okAspirante = consultaCandidatoModelo::mdlActualizarCampo("aspirante", "nuevo", $valorNuevo, "idAspirante", $idAspirante);
+
+    // 2. Obtener el ID de la vacante vinculada
+    $idVacante = consultaCandidatoModelo::obtenerVacantePorAspirante($idAspirante);
+
+    // 3. Actualizar vacantes.estatus = 1
+    $okVacante = false;
+    if ($idVacante) {
+        $okVacante = consultaCandidatoModelo::mdlActualizarCampo("vacantes", "estatus", 1, "idVacante", $idVacante);
+    }
+
+    // 4. Devolver éxito si ambos fueron exitosos
+    return ($okAspirante && $okVacante) ? "ok" : "error";
 }
+
 
 public static function actualizarNotificadoControlador($id) {
     return consultaCandidatoModelo::actualizarNotificadoModelo($id);

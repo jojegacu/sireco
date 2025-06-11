@@ -67,7 +67,7 @@
       </li>
       <?php endif; ?>
 
-      <?php if (tieneAcceso("vacante") || tieneAcceso("masiva")): ?>
+      <?php if (tieneAcceso("vacante") || tieneAcceso("masiva") || tieneAcceso("cubierta")): ?>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-gears"></i>
@@ -82,6 +82,9 @@
           <?php endif; ?>
           <?php if (tieneAcceso("masiva")): ?>
           <li><a href="<?php echo $base_url; ?>masiva"><i class="fa fa-cloud-upload"></i> Carga masiva</a></li>
+          <?php endif; ?>
+          <?php if (tieneAcceso("cubierta")): ?>
+          <li><a href="<?php echo $base_url; ?>cubierta"><i class="fa fa-suitcase"></i> Plazas cubiertas</a></li>
           <?php endif; ?>
         </ul>
       </li>

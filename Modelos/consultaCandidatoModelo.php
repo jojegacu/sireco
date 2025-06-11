@@ -161,5 +161,16 @@ public static function actualizarAspiranteCurpModelo($tabla, $curp, $idAspirante
     return $stmt->execute();
 }
 
+public static function obtenerVacantePorAspirante($idAspirante) {
+    try {
+        $stmt = conexion::conexionBD()->prepare("SELECT puesto FROM aspirante WHERE idAspirante = :id");
+        $stmt->bindParam(":id", $idAspirante, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn(); // Devuelve idVacante
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 
 }

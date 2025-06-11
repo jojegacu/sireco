@@ -55,7 +55,7 @@ if (isset($_SESSION["ingresar"]) && $_SESSION["ingresar"] == true) {
 
     $menuPermitido = false;
     $vistasMenu = [
-        "usuarios", "nuevos", "checkManager", "contratacion", "roles", "municipios",  "reportes", "empleados", "standby", "vacante", "altaVac", "dashboard", "masiva"
+        "usuarios", "nuevos", "checkManager", "contratacion", "roles", "municipios",  "reportes", "empleados", "standby", "vacante", "altaVac", "dashboard", "masiva", "cubierta"
     ];
 
     foreach ($vistasMenu as $vista) {
@@ -76,8 +76,7 @@ if (isset($_SESSION["ingresar"]) && $_SESSION["ingresar"] == true) {
         if (in_array($url[0], [
             "inicio", "salir", "misDatos", "misDatosU", "misDatosE", "roles", "editarRol",
             "nuevos", "crearUsr", "editarUsr", "editarUsrUs", "editarUsrEmp", "editarUsrEst",
-            "editarUsrAct", "usuarios", "asignarUsr", "proyectos", "altaVac", "masiva", "reportes", "proyectoTecnico", "municipios", "empleados", "standby", "autoridades", "vacante",
-            "contratista", "clasificarProy", "dashboard", "generales", "generalMan", "checkManager", "contratacion"
+            "editarUsrAct", "usuarios", "asignarUsr", "proyectos", "altaVac", "masiva", "reportes", "proyectoTecnico", "municipios", "empleados", "standby", "autoridades", "vacante", "contratista", "clasificarProy", "dashboard", "generales", "generalMan", "checkManager", "contratacion", "cubierta"
         ])) {
             include "modulos/" . $url[0] . ".php";
         }

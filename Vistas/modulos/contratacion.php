@@ -258,7 +258,7 @@ if (!tieneAcceso("contratacion")) {
           <div class="row">
             <!-- Contrato Bancaria -->
             <div class="col-md-6 form-group">
-              <label>Contrato Bancaria</label>
+              <label>Estado de Cuenta Bancaria</label>
               <input type="file" name="cb" id="cb" class="form-control">
               <input type="checkbox" id="chk_cb" class="check-doc" disabled> Documento cargado
               <a id="link_cb" href="#" target="_blank" style="margin-left: 10px; display: none;">Ver Documento</a>

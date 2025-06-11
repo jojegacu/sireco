@@ -1,6 +1,6 @@
 <?php
 
-if (!tieneAcceso("masiva")) {
+if (!tieneAcceso("vacante")) {
     $baseUrl = rtrim(dirname($_SERVER["SCRIPT_NAME"]), "/");
     echo '<script>window.location.href = "' . $baseUrl . '/inicio";</script>';
     return;
@@ -15,18 +15,7 @@ if (!tieneAcceso("masiva")) {
 	<section class="content">
 			 
 		<div class="box">
-			<div class="box-header">
-				
-				  <!-- Reemplazo del botón -->
-						<button class="btn btn-success" data-toggle="modal" data-target="#modalCargaExcel">
-								CARGAR DOCUMENTO
-						</button>
-						<button class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarCategoria">
-					  ELIMINAR CATEGORÍA
-					</button> 
 
-				
-			</div>		
 			<div class="box-body">
 				<table id="example1" class="table table-bordered table-striped">
 					<thead>
@@ -34,7 +23,8 @@ if (!tieneAcceso("masiva")) {
 							<th>NO.</th>
 							<th>ID</th>
 							<th>REG</th>
-							<th>CATEGORIA</th>							
+							<th>CLAVE</th>
+							<th>CATEGORIA</th>
 							<th>TIENDA</th>
 							<th>CP</th>
 							<th>ESTADO</th>
@@ -50,18 +40,20 @@ if (!tieneAcceso("masiva")) {
 						  $vacantes = vacanteControlador::ctrMostrarVacantes();
 						  $contador = 1;
 
-						  foreach ($vacantes as $v) {
-						  	if (isset($v["categoria"]) && trim($v["categoria"]) != "" && $v["estatus"] == 0){
+						  foreach ($vacantes as $v) {						  	
+						  		if ($v["estatus"] == 1) {		  			
+						  		
 						    echo '
 						      <tr>
 						        <td>'.$v["idVacante"].'</td>
 						        <td>'.$v["id"].'</td>
 						        <td>'.$v["region"].'</td>
+						        <td>'.$v["clave"].'</td>
 						        <td>'.$v["categoria"].'</td>
 						        <td>'.$v["tienda"].'</td>
 						        <td>'.$v["cp"].'</td>
-										<td>'.$v["edo"].'</td>
-										<td>'.$v["mun"].'</td>
+								<td>'.$v["edo"].'</td>
+								<td>'.$v["mun"].'</td>
 						        <td>'.$v["responsable"].'</td>
 						        <td>'.$v["puesto"].'</td>
 						        <td>'.date("d/m/Y", strtotime($v["fechaAlta"])).'</td>
@@ -74,7 +66,8 @@ if (!tieneAcceso("masiva")) {
 						          </div>
 						        </td>
 						      </tr>';
-						     }
+						      
+						    }
 						  }
 						  ?>
 					</tbody>
@@ -86,57 +79,6 @@ if (!tieneAcceso("masiva")) {
 		</div>
 		
 	</section>
-
-<!-- Modal para cargar documento Excel -->
-<div class="modal fade" id="modalCargaExcel" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form id="formCargaExcel" enctype="multipart/form-data">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Subir Documento Excel</h4>
-        </div>
-        <div class="modal-body">
-          <input type="file" name="archivoExcel" accept=".xls,.xlsx,.xlsm" class="form-control mb-3" required>
-          <!-- Barra de progreso -->
-          <div class="progress" style="height: 25px; display: none;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-              style="width: 0%">0%</div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Procesar archivo</button>
-          <button type="button" class="btn btn-success d-none" id="btnFinalizado">Aceptar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-<!-- Modal para eliminar por categoría -->
-<div class="modal fade" id="modalEliminarCategoria" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <form id="formEliminarCategoria">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Eliminar Vacantes por Categoría</h4>
-        </div>
-        <div class="modal-body">
-          <label>Clave de categoría:</label>
-          <input type="text" name="categoriaEliminar" class="form-control" placeholder="Ejemplo: 24051429A" required>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
 </div>
   
 			</form>

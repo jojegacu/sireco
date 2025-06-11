@@ -92,7 +92,7 @@ if (!tieneAcceso("vacante")) {
 	
 </div>
 
-<!-- Modal de Edición de Vacante -->
+<<!-- Modal de Edición de Vacante -->
 <div class="modal fade" id="modalEditarVacante" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -101,48 +101,58 @@ if (!tieneAcceso("vacante")) {
           <h4 class="modal-title">Editar Vacante</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body row">
+        <div class="modal-body">
           <input type="hidden" id="edit_idVacante" name="idVacante">
           <input type="hidden" id="edit_clave" name="clave">
           <input type="hidden" id="edit_id" name="id">
 
-          <div class="col-lg-6">
-            <label>Región</label>
-            <select class="form-control" name="idRegionFk" id="edit_comboRegion" required></select>
-          </div>
-          <div class="col-lg-6">
-            <label>Tienda</label>
-            <input class="form-control" name="tienda" id="edit_tienda" required>
+          <!-- Fila 1 -->
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Región</label>
+              <select class="form-control" name="idRegionFk" id="edit_comboRegion" required></select>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Tienda</label>
+              <input class="form-control" name="tienda" id="edit_tienda" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Responsable</label>
+              <input class="form-control" name="responsable" id="edit_responsable" required>
+            </div>
           </div>
 
-          <div class="col-lg-6 mt-2">
-            <label>Responsable</label>
-            <input class="form-control" name="responsable" id="edit_responsable" required>
-          </div>
-          <div class="col-lg-6 mt-2">
-            <label>Código Postal</label>
+          <!-- Fila 2 -->
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Código Postal</label>
               <input type="text" class="form-control" name="codPostal" id="codPostalGenerales" autocomplete="off">
               <ul id="lista-sugerencias-cp" class="list-group" style="position:absolute; z-index:1000;"></ul>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Estado</label>
+              <input class="form-control" name="estado" id="estadoGenerales" readonly>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Municipio</label>
+              <input class="form-control" name="ciudadMun" id="ciudadGenerales" readonly>
+            </div>
           </div>
-          <div class="col-lg-4 mt-2">
-            <label>Estado</label>
-            <input class="form-control" name="estado" id="estadoGenerales" readonly>
-          </div>
-          <div class="col-lg-4 mt-2">
-            <label>Municipio</label>
-            <input class="form-control" name="ciudadMun" id="ciudadGenerales" readonly>
-          </div>
-          <div class="col-lg-4 mt-2">
-            <label>Colonia</label>
-            <input class="form-control" name="colBarrio" id="coloniaGenerales" readonly>
-          </div>
-          <div class="col-lg-6 mt-2">
-            <label>Vacante</label>
-            <select class="form-control" name="idCatalogoFk" id="edit_comboPuesto" required></select>
-          </div>
-          <div class="col-lg-6 mt-2">
-            <label>Fecha Alta</label>
-            <input class="form-control" name="fechaCap" id="edit_fechaCap" readonly>
+
+          <!-- Fila 3 -->
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Colonia</label>
+              <input class="form-control" name="colBarrio" id="coloniaGenerales" readonly>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Vacante</label>
+              <select class="form-control" name="idCatalogoFk" id="edit_comboPuesto" required></select>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fecha Alta</label>
+              <input class="form-control" name="fechaCap" id="edit_fechaCap" readonly>
+            </div>
           </div>
         </div>
 

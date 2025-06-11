@@ -175,10 +175,14 @@ public static function mdlExisteCategoria($tabla, $categoria) {
 }
 
 static public function mdlEliminarPorCategoria($tabla, $categoria) {
-  $stmt = conexion::conexionBD()->prepare("DELETE FROM $tabla WHERE categoria = :categoria");
+  $stmt = conexion::conexionBD()->prepare("
+    DELETE FROM $tabla 
+    WHERE categoria = :categoria AND estatus = 0
+  ");
   $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
   return $stmt->execute() ? "ok" : "error";
 }
+
 
 // Obtener todas las vacantes con nombre del puesto (JOIN con catalogos)
 static public function mdlListarVacantesParaSeleccion($tabla) {
